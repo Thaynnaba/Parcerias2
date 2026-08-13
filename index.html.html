@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICTs por tema prioritário — ranking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#00003D;--purple:#6000FF;--cyan:#66D8FF;--ink:#16162B;--muted:#6B6B85;
+  --line:#E4E4EF;--surface:#fff;--bg:#F6F6FA;--warn:#B54708;--r:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.5;font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+header{background:var(--navy);color:#fff;padding:32px 0 28px}
+.hrow{display:flex;justify-content:space-between;align-items:flex-start;gap:26px;flex-wrap:wrap}
+header h1{font-size:clamp(22px,3.1vw,33px);font-weight:800;letter-spacing:-.02em;line-height:1.14}
+header h1 em{font-style:normal;color:var(--cyan)}
+.sub{margin-top:9px;font-size:12.5px;color:#A8A8C8;max-width:62ch}
+.meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px}
+.meta span{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+  padding:5px 11px;border-radius:99px;color:#D6D6EC}
+
+.load{flex-shrink:0}
+.load label{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:#8E8EB8;margin-bottom:7px}
+.drop{border:1.5px dashed rgba(255,255,255,.3);border-radius:9px;padding:14px 18px;
+  min-width:230px;cursor:pointer;transition:border-color .15s,background .15s;display:block}
+.drop:hover,.drop.on{border-color:var(--cyan);background:rgba(102,216,255,.09)}
+.drop b{display:block;font-size:12.5px;font-weight:600;color:#fff}
+.drop span{display:block;font-size:11px;color:#8E8EB8;margin-top:2px}
+.drop input{display:none}
+.stat{margin-top:8px;font-size:11px;color:var(--cyan);min-height:15px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.controls{margin-top:-20px;position:relative;z-index:2;box-shadow:0 8px 28px rgba(0,0,61,.10)}
+.temas{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:17px;margin-bottom:17px;
+  border-bottom:1px solid var(--line)}
+.tb{font-family:inherit;font-size:13px;font-weight:600;padding:9px 16px;border-radius:99px;
+  border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;
+  transition:all .14s}
+.tb:hover:not(.sel){border-color:#C3BAEC;color:var(--ink)}
+.tb.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+.tb.vazio{opacity:.5}
+.tb small{display:inline-block;margin-left:6px;font-size:10px;font-weight:700;opacity:.75}
+
+.ctl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
+label.fl{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+select{width:100%;font-family:inherit;font-size:13px;font-weight:500;color:var(--ink);
+  padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;cursor:pointer}
+select:focus-visible,button:focus-visible,input:focus-visible,.drop:focus-visible,
+[role=button]:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.slider-box{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px}
+.slider-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.slider-head b{font-size:13px;font-weight:700}
+.slider-head .hint{font-size:12px;color:var(--muted)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;
+  margin-top:14px;background:linear-gradient(90deg,var(--cyan),var(--purple));cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:#fff;border:3px solid var(--purple);box-shadow:0 2px 6px rgba(0,0,61,.28)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;
+  border:3px solid var(--purple);box-shadow:0 2px 6px rgba(0,0,61,.28)}
+.scale{display:flex;justify-content:space-between;margin-top:7px;font-size:11px;
+  font-weight:600;color:var(--muted)}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin-top:20px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.kpi .k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:5px;line-height:1.1}
+.kpi .n{font-size:11px;color:var(--muted);margin-top:3px}
+.kpi.lead{background:var(--navy);border-color:var(--navy)}
+.kpi.lead .k{color:var(--cyan)}.kpi.lead .v{color:#fff}.kpi.lead .n{color:#A8A8C8}
+
+h2{font-size:15px;font-weight:700;margin-bottom:3px}
+.sec{margin-top:30px}
+.sec p.lead{font-size:12px;color:var(--muted);margin-bottom:13px;max-width:76ch}
+.rank{display:flex;flex-direction:column;gap:7px}
+.row{display:grid;grid-template-columns:38px 1fr 132px 64px 26px;gap:14px;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:12px 15px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.row:hover{border-color:#C9C4E8;box-shadow:0 3px 12px rgba(0,0,61,.07)}
+.row[aria-expanded=true]{border-color:var(--purple);box-shadow:0 3px 14px rgba(96,0,255,.14)}
+.pos{font-size:17px;font-weight:800;color:var(--navy);text-align:center}
+.pos small{display:block;font-size:9px;font-weight:700;margin-top:1px}
+.up{color:#0E7C4A}.down{color:#B42318}.same{color:#B8B8CC}
+.nm{font-size:14px;font-weight:700}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.chip{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;
+  background:#F0EDFC;color:#4A00C2;white-space:nowrap}
+.chip.t3{background:#E4F4FA;color:#0C5E77}.chip.t2{background:#FBF0DA;color:#845209}
+.chip.t1,.chip.t0{background:#EFEFF4;color:#4B4B60}
+.chip.gap{background:#FDF0E6;color:var(--warn)}
+.bars{display:flex;flex-direction:column;gap:4px}
+.bar{display:flex;align-items:center;gap:6px}
+.bar i{font-style:normal;font-size:9px;font-weight:700;color:var(--muted);width:11px}
+.track{flex:1;height:6px;background:#EDEDF4;border-radius:99px;overflow:hidden}
+.fill{height:100%;border-radius:99px;transition:width .35s cubic-bezier(.4,0,.2,1)}
+.fill.c{background:var(--purple)}.fill.f{background:var(--cyan)}
+.sc{font-size:19px;font-weight:800;text-align:right;letter-spacing:-.02em}
+.caret{font-size:11px;color:#B8B8CC;text-align:center}
+
+.detail{background:#FBFAFF;border:1px solid var(--line);border-top:none;
+  border-radius:0 0 var(--r) var(--r);margin-top:-8px;padding:16px 18px 18px}
+.dcols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.dcols h4{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:9px}
+.crit{display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-top:1px solid #EEEDF6}
+.crit:first-of-type{border-top:none}
+.nota{flex-shrink:0;width:21px;height:21px;border-radius:5px;display:grid;place-items:center;
+  font-size:11px;font-weight:800;color:#fff;background:var(--purple)}
+.nota.n0{background:#C7C7DC}.nota.n1{background:#A99BE0}.nota.n2{background:#8055F0}
+.nota.vz{background:#EDEDF4;color:#9B9BB2;font-size:10px}
+.crit em{font-style:normal;font-size:11.5px;line-height:1.35}
+.crit em b{display:block;font-weight:700;font-size:11px;color:var(--navy)}
+.crit em span{color:var(--muted)}
+.dnote{margin-top:14px;font-size:11.5px;color:var(--warn);line-height:1.5}
+
+.plot{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+svg{display:block;width:100%;height:auto}
+.dot{cursor:pointer}.dot circle{transition:r .15s}.dot:hover circle{r:9}
+.qlab{font-size:9.5px;font-weight:700;letter-spacing:.06em;fill:#C2C2D4;text-transform:uppercase}
+.axl{font-size:10.5px;font-weight:700;fill:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.dlab{font-size:10px;font-weight:600;fill:var(--navy)}
+
+.notes{margin:30px 0 46px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);padding:20px 22px}
+.notes h3{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:11px}
+.notes ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.notes li{font-size:12.5px;color:#40405C;padding-left:15px;position:relative;line-height:1.55}
+.notes li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;
+  border-radius:50%;background:var(--purple)}
+.notes li.w::before{background:var(--warn)}
+.empty{padding:38px 26px;text-align:center;background:var(--surface);
+  border:1px dashed var(--line);border-radius:var(--r)}
+.empty b{display:block;font-size:14px;font-weight:700;margin-bottom:5px}
+.empty span{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+@media(max-width:760px){.row{grid-template-columns:30px 1fr 60px;gap:10px}
+  .bars,.caret{display:none}.dcols{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap hrow">
+  <div>
+    <h1>ICTs por <em>tema prioritário</em></h1>
+    <p class="sub">Escolha o tema e o ranking se recalcula. A competência muda de tema para tema; a facilidade de contratação é institucional e vale para todos.</p>
+    <div class="meta" id="meta"></div>
+  </div>
+  <div class="load">
+    <label for="csv">Dados</label>
+    <label class="drop" id="drop" tabindex="0" role="button">
+      <b>Carregar planilha</b>
+      <span>Arraste o CSV ou clique para escolher</span>
+      <input type="file" id="csv" accept=".csv,text/csv">
+    </label>
+    <div class="stat" id="stat">Usando os dados de IA já levantados</div>
+  </div>
+ </div>
+</header>
+
+<div class="wrap">
+  <section class="panel controls" aria-label="Filtros">
+    <div class="temas" id="temas" role="tablist" aria-label="Tema prioritário"></div>
+    <div class="ctl-grid">
+      <div><label class="fl" for="fAd">Aderência ao tema</label>
+        <select id="fAd">
+          <option value="todas">Todas as ICTs</option>
+          <option value="2">Unidade no tema ou adjacente</option>
+          <option value="3">Só unidade EMBRAPII no tema</option>
+        </select></div>
+      <div><label class="fl" for="fReg">Região</label>
+        <select id="fReg"><option value="todas">Todas</option></select></div>
+      <div><label class="fl" for="fEmb">Classificação EMBRAPII</label>
+        <select id="fEmb">
+          <option value="todas">Todas</option>
+          <option value="3">Só Diamante</option>
+          <option value="2">Diamante, Ouro ou Prata</option>
+          <option value="1">Qualquer unidade credenciada</option>
+        </select></div>
+      <div class="slider-box">
+        <div class="slider-head"><b>O que pesa mais na escolha</b>
+          <span class="hint" id="wTxt"></span></div>
+        <input type="range" id="w" min="0" max="100" value="50" step="5"
+          aria-label="Peso entre facilidade de contratação e competência no tema">
+        <div class="scale"><span>Facilidade de contratar</span><span>Competência no tema</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="kpis" id="kpis" aria-live="polite"></section>
+
+  <section class="sec"><h2>Ranking</h2>
+    <p class="lead">Clique numa linha para ver a nota de cada critério. Barra roxa é competência, azul é facilidade.</p>
+    <div class="rank" id="rank"></div></section>
+
+  <section class="sec" id="secPlot"><h2>Competência × facilidade</h2>
+    <p class="lead">Cada ponto é uma ICT. Canto superior direito é onde você quer estar.</p>
+    <div class="plot"><svg id="plot" viewBox="0 0 760 430" role="img"
+      aria-label="Dispersão de competência contra facilidade de contratação"></svg></div></section>
+
+  <section class="notes">
+    <h3>Como o número foi montado</h3>
+    <ul id="notas"></ul>
+  </section>
+</div>
+
+<script>
+const REG={
+ C1:{n:"Volume de publicações no tema",e:["Menos de 50 trabalhos","50 a 199","200 a 499","500 ou mais"]},
+ C2:{n:"Aderência da unidade EMBRAPII ao tema",e:["Não é unidade credenciada","Área não relacionada ao tema","Área adjacente ao tema","Diretamente no tema"]},
+ C3:{n:"Classificação de desempenho EMBRAPII",e:["Sem classificação","Bronze","Prata ou Ouro","Diamante"]},
+ C4:{n:"Laboratórios e grupos dedicados",e:["Nenhum dedicado","1 a 3","4 a 9","10 ou mais"]},
+ F1:{n:"Tempo de tramitação",e:["Acima de 120 dias","91 a 120 dias","46 a 90 dias","Até 45 dias"]},
+ F2:{n:"Política de PI",e:["Sem política formal","Cessão restrita","Cessão total, contrapartida sem parâmetro","Cessão total com percentual definido"]},
+ F3:{n:"Maturidade da via de contratação",e:["Sem via estruturada","Fundação de maturidade baixa","Fundação de maturidade média","Alta maturidade ou contratação direta"]},
+ F4:{n:"Política de transferência de tecnologia",e:["Inexistente","Sem procedimento definido","Política formal com procedimento","NIT ativo, com casos concluídos"]}
+};
+const KC=["C1","C2","C3","C4"], KF=["F1","F2","F3","F4"];
+
+const PADRAO=[
+ ["Inteligência Artificial","UFCG","NORDESTE",1,2,3,3,3,3,3,null,"Unidade em software e automação; centro de competência em hardware inteligente. 135 publicações."],
+ ["Inteligência Artificial","UFPE","NORDESTE",3,3,1,null,3,2,3,null,"CIn-UFPE: unidade diretamente em IA, sistemas digitais e veiculares. 592 publicações."],
+ ["Inteligência Artificial","USP","SUDESTE",3,1,2,null,0,2,3,null,"Unidade EMBRAPII de fármacos. Lidera publicação com 1.409 trabalhos, tramitação de 4 a 6 meses."],
+ ["Inteligência Artificial","UFRN","NORDESTE",2,2,1,null,2,3,2,null,"IoT e cloud, adjacente a IA. PI de 2% para cessão total, a mais baixa do conjunto."],
+ ["Inteligência Artificial","UFF","SUDESTE",2,0,0,null,2,null,null,null,"Não é unidade EMBRAPII. 409 publicações em IA."],
+ ["Inteligência Artificial","UFPR","SUL",2,1,0,null,3,null,2,null,"Unidade de baixo carbono, não relacionada a IA. Tramitação de 30 a 40 dias."],
+ ["Inteligência Artificial","UFG - CEIA","CENTRO OESTE",2,3,3,null,2,2,3,null,"Única unidade EMBRAPII Diamante dedicada a IA."],
+ ["Inteligência Artificial","CIMATEC","NORDESTE",1,2,3,null,null,2,3,null,"Soluções industriais, adjacente. ICT privada: entregável contratado em vez de artigo."],
+ ["Inteligência Artificial","ELDORADO","SUDESTE",0,2,2,null,null,2,3,null,"Embarcado, adjacente. Fora do top 200 do corpus de IA por ser ICT privada."],
+ ["Inteligência Artificial","UFRJ","SUDESTE",3,1,3,null,2,null,3,null,"Unidade Diamante, porém em engenharia de petróleo. 613 publicações em IA."],
+ ["Inteligência Artificial","UFMG","SUDESTE",3,2,1,null,2,2,3,null,"Inclui Software para Sistemas Ciberfísicos. 774 publicações em IA."],
+ ["Inteligência Artificial","ITA","SUDESTE",1,1,3,null,0,null,2,null,"Unidade Diamante em sistemas de transmissão de potência. Tramitação de 9 meses."]
+].map(a=>({tema:a[0],ict:a[1],regiao:a[2],C1:a[3],C2:a[4],C3:a[5],C4:a[6],
+           F1:a[7],F2:a[8],F3:a[9],F4:a[10],obs:a[11]}));
+
+const NOTAS_PADRAO=[
+ ["Competência no tema","média das notas C1 a C4, dividida por 3. Varia de 0 a 1.",0],
+ ["Facilidade de contratação","média das notas F1 a F4, dividida por 3. É institucional: não muda conforme o tema.",0],
+ ["Média simples","nenhum critério pesa mais que outro. Método adaptado dos indicadores sistêmicos GESEL-UFRJ / RedeSist.",0],
+ ["Vazio não é zero","critério em branco sai da média. Zero é a pior nota real; branco é ausência de levantamento.",0],
+ ["Cobertura","o selo <b>dado parcial</b> marca ICT com menos de 3 critérios preenchidos em algum eixo. Compare com cuidado.",1]
+];
+
+let DADOS=PADRAO.slice(), tema=null, aberta=null;
+const $=id=>document.getElementById(id);
+const br=n=>n.toFixed(2).replace(".",",");
+const media=a=>{const v=a.filter(x=>x!=null&&x!=="");return v.length?v.reduce((s,x)=>s+ +x,0)/v.length:null};
+
+function calc(){
+  DADOS.forEach(d=>{
+    d.nC=KC.map(k=>d[k]); d.nF=KF.map(k=>d[k]);
+    d.cobC=d.nC.filter(x=>x!=null).length; d.cobF=d.nF.filter(x=>x!=null).length;
+    const mc=media(d.nC), mf=media(d.nF);
+    d.comp=mc==null?null:mc/3; d.fac=mf==null?null:mf/3;
+    d.ok=d.comp!=null&&d.fac!=null;
+  });
+}
+const score=(d,w)=>w*d.comp+(1-w)*d.fac;
+const temasLista=()=>[...new Set(DADOS.map(d=>d.tema))].filter(Boolean);
+const doTema=t=>DADOS.filter(d=>d.tema===t&&d.ok);
+
+function montarTemas(){
+  const ts=temasLista();
+  if(!ts.includes(tema))tema=ts.find(t=>doTema(t).length)||ts[0]||null;
+  $("temas").innerHTML=ts.map(t=>{
+    const n=doTema(t).length;
+    return `<button class="tb${t===tema?" sel":""}${n?"":" vazio"}" role="tab"
+      aria-selected="${t===tema}" data-t="${t}">${t}<small>${n||"—"}</small></button>`;
+  }).join("")||'<span style="font-size:12px;color:var(--muted)">Nenhum tema nos dados carregados.</span>';
+  document.querySelectorAll(".tb").forEach(b=>b.addEventListener("click",()=>{
+    tema=b.dataset.t;aberta=null;montarTemas();render()}));
+
+  const regs=[...new Set(DADOS.filter(d=>d.tema===tema).map(d=>d.regiao))].filter(Boolean).sort();
+  const at=$("fReg").value;
+  $("fReg").innerHTML='<option value="todas">Todas</option>'+regs.map(r=>`<option>${r}</option>`).join("");
+  if(regs.includes(at))$("fReg").value=at;
+
+  $("meta").innerHTML=[`${ts.length} tema${ts.length>1?"s":""}`,
+    `${new Set(DADOS.map(d=>d.ict)).size} ICTs`,
+    `${DADOS.filter(d=>d.ok).length} avaliações completas`]
+    .map(s=>`<span>${s}</span>`).join("");
+  $("notas").innerHTML=NOTAS_PADRAO.map(([t,d,w])=>
+    `<li class="${w?"w":""}"><b>${t}</b> — ${d}</li>`).join("");
+}
+
+function filtrar(){
+  const a=$("fAd").value,r=$("fReg").value,e=$("fEmb").value;
+  return doTema(tema).filter(d=>{
+    if(a!=="todas"&&!(d.C2>=+a))return false;
+    if(r!=="todas"&&d.regiao!==r)return false;
+    if(e!=="todas"&&!(d.C3>=+e))return false;
+    return true;
+  });
+}
+
+function render(){
+  const w=+$("w").value/100;
+  $("wTxt").textContent=`${Math.round(w*100)}% competência · ${Math.round((1-w)*100)}% facilidade`;
+  const lista=filtrar().slice().sort((x,y)=>score(y,w)-score(x,w)||y.comp-x.comp);
+  const base=filtrar().slice().sort((x,y)=>score(y,.5)-score(x,.5)||y.comp-x.comp);
+  const pb=new Map(base.map((d,i)=>[d.ict,i]));
+
+  if(!lista.length){
+    $("kpis").innerHTML="";$("secPlot").style.display="none";
+    const semTema=!doTema(tema).length;
+    $("rank").innerHTML=`<div class="empty"><b>${semTema?"Tema ainda sem pontuação":"Nenhuma ICT passa nesses filtros"}</b>
+      <span>${semTema
+        ?"Preencha as notas deste tema na aba <b>Competência por tema</b> da planilha, salve a aba <b>Exportar</b> como CSV e carregue aqui."
+        :"Afrouxe um dos filtros acima."}</span></div>`;
+    return;
+  }
+  $("secPlot").style.display="";
+
+  const top=lista[0], parciais=lista.filter(d=>d.cobC<3||d.cobF<3).length;
+  const noTema=lista.filter(d=>d.C2>=2).length;
+  const mediaC=media(lista.map(d=>d.comp)), mediaF=media(lista.map(d=>d.fac));
+  $("kpis").innerHTML=`
+   <div class="kpi lead"><div class="k">Melhor colocada</div><div class="v">${top.ict}</div>
+     <div class="n">nota ${br(score(top,w))} de 1,00</div></div>
+   <div class="kpi"><div class="k">ICTs no filtro</div><div class="v">${lista.length}</div>
+     <div class="n">de ${doTema(tema).length} avaliadas no tema</div></div>
+   <div class="kpi"><div class="k">Competência média</div><div class="v">${br(mediaC)}</div>
+     <div class="n">do conjunto filtrado</div></div>
+   <div class="kpi"><div class="k">Facilidade média</div><div class="v">${br(mediaF)}</div>
+     <div class="n">institucional, igual em todo tema</div></div>
+   <div class="kpi"><div class="k">Aderentes ao tema</div><div class="v">${noTema}</div>
+     <div class="n">unidade EMBRAPII no tema ou adjacente</div></div>`;
+
+  $("rank").innerHTML=lista.map((d,i)=>{
+    const dl=pb.has(d.ict)?pb.get(d.ict)-i:0;
+    const mv=dl>0?`<small class="up">▲${dl}</small>`:dl<0?`<small class="down">▼${-dl}</small>`:`<small class="same">—</small>`;
+    const parcial=d.cobC<3||d.cobF<3;
+    const crit=(ks,d)=>ks.map(k=>{
+      const v=d[k], t=v==null?"não levantado":REG[k].e[v];
+      return `<div class="crit"><div class="nota ${v==null?"vz":"n"+v}">${v==null?"–":v}</div>
+        <em><b>${REG[k].n}</b><span>${t}</span></em></div>`}).join("");
+    const det=aberta===d.ict?`<div class="detail">
+      <div class="dcols">
+        <div><h4>Competência no tema · ${br(d.comp)}</h4>${crit(KC,d)}</div>
+        <div><h4>Facilidade de contratação · ${br(d.fac)}</h4>${crit(KF,d)}</div>
+      </div>
+      ${d.obs?`<p class="dnote">${d.obs}</p>`:""}
+      ${parcial?`<p class="dnote">Cobertura: ${d.cobC} de 4 em competência, ${d.cobF} de 4 em facilidade.</p>`:""}
+    </div>`:"";
+    return `<div class="row" role="button" tabindex="0" data-i="${d.ict}" aria-expanded="${aberta===d.ict}">
+      <div class="pos">${i+1}${mv}</div>
+      <div><div class="nm">${d.ict}</div><div class="chips">
+        <span class="chip">${REG.C2.e[d.C2]??"aderência não levantada"}</span>
+        ${d.C3!=null?`<span class="chip t${d.C3}">${REG.C3.e[d.C3]}</span>`:""}
+        <span class="chip">${d.regiao}</span>
+        ${parcial?'<span class="chip gap">dado parcial</span>':""}</div></div>
+      <div class="bars">
+        <div class="bar"><i>C</i><div class="track"><div class="fill c" style="width:${d.comp*100}%"></div></div></div>
+        <div class="bar"><i>F</i><div class="track"><div class="fill f" style="width:${d.fac*100}%"></div></div></div></div>
+      <div class="sc">${br(score(d,w))}</div>
+      <div class="caret">${aberta===d.ict?"▲":"▼"}</div>
+    </div>${det}`;
+  }).join("");
+
+  document.querySelectorAll(".row").forEach(el=>{
+    const t=()=>{aberta=aberta===el.dataset.i?null:el.dataset.i;render()};
+    el.addEventListener("click",t);
+    el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();t()}});
+  });
+  desenhar(lista);
+}
+
+function desenhar(lista){
+  const W=760,H=430,m={t:26,r:26,b:52,l:60},iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const X=v=>m.l+v*iw, Y=v=>m.t+(1-v)*ih;
+  let g=`<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="#FBFBFE"/>`;
+  for(let i=0;i<=4;i++){const p=i/4;
+    g+=`<line x1="${X(p)}" y1="${m.t}" x2="${X(p)}" y2="${m.t+ih}" stroke="#EDEDF4"/>
+        <line x1="${m.l}" y1="${Y(p)}" x2="${m.l+iw}" y2="${Y(p)}" stroke="#EDEDF4"/>
+        <text x="${X(p)}" y="${m.t+ih+17}" text-anchor="middle" font-size="10" fill="#9B9BB2">${br(p)}</text>
+        <text x="${m.l-9}" y="${Y(p)+3.5}" text-anchor="end" font-size="10" fill="#9B9BB2">${br(p)}</text>`}
+  g+=`<line x1="${X(.5)}" y1="${m.t}" x2="${X(.5)}" y2="${m.t+ih}" stroke="#C7C7DC" stroke-dasharray="4 4"/>
+      <line x1="${m.l}" y1="${Y(.5)}" x2="${m.l+iw}" y2="${Y(.5)}" stroke="#C7C7DC" stroke-dasharray="4 4"/>
+      <text class="qlab" x="${X(.97)}" y="${Y(.96)}" text-anchor="end">Prioridade</text>
+      <text class="qlab" x="${X(.03)}" y="${Y(.96)}">Complementar</text>
+      <text class="qlab" x="${X(.97)}" y="${Y(.02)}" text-anchor="end">Exige estruturação</text>
+      <text class="qlab" x="${X(.03)}" y="${Y(.02)}">Baixa prioridade</text>
+      <text class="axl" x="${m.l+iw/2}" y="${H-9}" text-anchor="middle">Competência no tema</text>
+      <text class="axl" transform="rotate(-90 15 ${m.t+ih/2})" x="15" y="${m.t+ih/2}" text-anchor="middle">Facilidade de contratação</text>`;
+  const pts=lista.map(d=>({d,x:X(d.comp),y:Y(d.fac)})),postos=[],OFF=[-13,17,-26,30,-39,43,-52,56];
+  pts.forEach(({d,x,y})=>{
+    const lg=d.ict.length*5.6; let lx=x,anc="middle";
+    if(lx-lg/2<m.l+4){lx=m.l+4;anc="start"}else if(lx+lg/2>m.l+iw-4){lx=m.l+iw-4;anc="end"}
+    const bate=ly=>postos.some(u=>Math.abs(u.x-lx)<(u.w+lg)/2+6&&Math.abs(u.y-ly)<12)
+      ||pts.some(o=>Math.abs(o.x-lx)<lg/2+9&&Math.abs(o.y-ly)<11);
+    let ly=y+OFF[0]; for(const o of OFF){ly=y+o;if(!bate(ly))break}
+    postos.push({x:lx,y:ly,w:lg});
+    const cor=d.C2===3?"#6000FF":d.C2===2?"#9B6BFF":"#B9B9CE";
+    g+=`<g class="dot" data-i="${d.ict}"><title>${d.ict}\ncompetência ${br(d.comp)} · facilidade ${br(d.fac)}</title>
+        <circle cx="${x}" cy="${y}" r="6.5" fill="${cor}" fill-opacity=".9" stroke="#fff" stroke-width="1.6"/>
+        <text class="dlab" x="${lx}" y="${ly}" text-anchor="${anc}">${d.ict}</text></g>`});
+  $("plot").innerHTML=g;
+  document.querySelectorAll(".dot").forEach(el=>el.addEventListener("click",()=>{
+    aberta=aberta===el.dataset.i?null:el.dataset.i;render();
+    document.querySelector(`.row[data-i="${el.dataset.i}"]`)?.scrollIntoView({block:"center",behavior:"smooth"})}));
+}
+
+/* ---------- CSV ---------- */
+function parseCSV(txt){
+  txt=txt.replace(/^\uFEFF/,"").replace(/\r\n?/g,"\n");
+  const cab=txt.slice(0,txt.indexOf("\n"));
+  const sep=(cab.match(/;/g)||[]).length>(cab.match(/,/g)||[]).length?";":",";
+  const linhas=[];let campo="",lin=[],asp=false;
+  for(let i=0;i<txt.length;i++){const c=txt[i];
+    if(asp){ if(c==='"'){ if(txt[i+1]==='"'){campo+='"';i++} else asp=false } else campo+=c }
+    else if(c==='"')asp=true;
+    else if(c===sep){lin.push(campo);campo=""}
+    else if(c==="\n"){lin.push(campo);linhas.push(lin);lin=[];campo=""}
+    else campo+=c}
+  if(campo!==""||lin.length){lin.push(campo);linhas.push(lin)}
+  return linhas.filter(l=>l.some(x=>x.trim()!==""));
+}
+function carregar(txt){
+  const l=parseCSV(txt);
+  if(l.length<2)throw new Error("O arquivo não tem linhas de dados.");
+  const cab=l[0].map(h=>h.trim().toLowerCase());
+  const idx={};["tema","ict","regiao","c1","c2","c3","c4","f1","f2","f3","f4","obs"]
+    .forEach(k=>idx[k]=cab.indexOf(k));
+  const falta=["tema","ict"].filter(k=>idx[k]<0);
+  if(falta.length)throw new Error("Faltam as colunas: "+falta.join(", ")+". Exporte a aba Exportar da planilha.");
+  const num=v=>{v=(v||"").trim();if(v==="")return null;const n=+v.replace(",",".");
+    return Number.isFinite(n)&&n>=0&&n<=3?Math.round(n):null};
+  const out=[];
+  l.slice(1).forEach(r=>{
+    const tema=(r[idx.tema]||"").trim(), ict=(r[idx.ict]||"").trim();
+    if(!tema||!ict)return;
+    const o={tema,ict,regiao:idx.regiao>=0?(r[idx.regiao]||"").trim():"",
+             obs:idx.obs>=0?(r[idx.obs]||"").trim():""};
+    [...KC,...KF].forEach(k=>o[k]=idx[k.toLowerCase()]>=0?num(r[idx[k.toLowerCase()]]):null);
+    out.push(o);
+  });
+  if(!out.length)throw new Error("Nenhuma linha com tema e ICT preenchidos.");
+  DADOS=out;calc();tema=null;aberta=null;montarTemas();render();
+  const nt=temasLista().length, nok=DADOS.filter(d=>d.ok).length;
+  $("stat").innerHTML=`${out.length} linhas · ${nt} tema${nt>1?"s":""} · ${nok} com nota nos dois eixos`;
+  $("stat").style.color="var(--cyan)";
+}
+function lerArquivo(f){
+  if(!f)return;
+  const fr=new FileReader();
+  fr.onload=()=>{try{carregar(fr.result)}catch(e){
+    $("stat").textContent=e.message;$("stat").style.color="#FF9E7A"}};
+  fr.onerror=()=>{$("stat").textContent="Não consegui ler o arquivo.";$("stat").style.color="#FF9E7A"};
+  fr.readAsText(f,"utf-8");
+}
+const drop=$("drop");
+$("csv").addEventListener("change",e=>lerArquivo(e.target.files[0]));
+drop.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("csv").click()}});
+["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{
+  e.preventDefault();drop.classList.add("on")}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{
+  e.preventDefault();drop.classList.remove("on")}));
+drop.addEventListener("drop",e=>lerArquivo(e.dataTransfer.files[0]));
+
+["fAd","fReg","fEmb"].forEach(id=>$(id).addEventListener("change",()=>{aberta=null;render()}));
+$("w").addEventListener("input",render);
+calc();montarTemas();render();
+</script>
+</body>
+</html>
