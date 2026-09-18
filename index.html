@@ -3,473 +3,647 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ICTs por tema prioritário — ranking</title>
+<title>Inteligência Tecnológica — ICTs para IA Agêntica</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#00003D;--purple:#6000FF;--cyan:#66D8FF;--ink:#16162B;--muted:#6B6B85;
-  --line:#E4E4EF;--surface:#fff;--bg:#F6F6FA;--warn:#B54708;--r:10px}
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:var(--bg);color:var(--ink);line-height:1.5;font-variant-numeric:tabular-nums}
-.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+ :root{
+  --laranja:#EC7000; --laranja-esc:#C85E00; --laranja-cl:#FDF1E4; --laranja-bd:#F6C79A;
+  --navy:#10284A; --navy-cl:#E9EDF3;
+  --verde:#1B6B4A; --verde-cl:#E9F5EF;
+  --pg:#FFFFFF; --card:#FFFFFF; --mut:#F6F6F8; --linha:#E3E3E9;
+  --tx:#2E3338; --tx2:#6B7076; --tx3:#9AA0A6;
+  --f:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ html{-webkit-text-size-adjust:100%}
+ body{font-family:var(--f);background:var(--pg);color:var(--tx);font-size:14px;
+   line-height:1.55;font-variant-numeric:tabular-nums}
+ a{color:inherit;text-decoration:none}
+ .wrap{max-width:1120px;margin:0 auto;padding:0 26px}
 
-header{background:var(--navy);color:#fff;padding:32px 0 28px}
-.hrow{display:flex;justify-content:space-between;align-items:flex-start;gap:26px;flex-wrap:wrap}
-header h1{font-size:clamp(22px,3.1vw,33px);font-weight:800;letter-spacing:-.02em;line-height:1.14}
-header h1 em{font-style:normal;color:var(--cyan)}
-.sub{margin-top:9px;font-size:12.5px;color:#A8A8C8;max-width:62ch}
-.meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px}
-.meta span{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
-  padding:5px 11px;border-radius:99px;color:#D6D6EC}
+ .classif{border-bottom:1px solid var(--linha);padding:7px 0}
+ .classif .wrap{display:flex;justify-content:flex-end}
+ .classif span{font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--tx3)}
 
-.load{flex-shrink:0}
-.load label{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;
-  text-transform:uppercase;color:#8E8EB8;margin-bottom:7px}
-.drop{border:1.5px dashed rgba(255,255,255,.3);border-radius:9px;padding:14px 18px;
-  min-width:230px;cursor:pointer;transition:border-color .15s,background .15s;display:block}
-.drop:hover,.drop.on{border-color:var(--cyan);background:rgba(102,216,255,.09)}
-.drop b{display:block;font-size:12.5px;font-weight:600;color:#fff}
-.drop span{display:block;font-size:11px;color:#8E8EB8;margin-top:2px}
-.drop input{display:none}
-.stat{margin-top:8px;font-size:11px;color:var(--cyan);min-height:15px}
+ header{padding:20px 0 0}
+ .topo{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap}
+ .marca .eye{font-size:9.5px;font-weight:800;letter-spacing:.17em;color:var(--laranja);
+   text-transform:uppercase}
+ .marca .nm{font-size:17px;font-weight:800;color:var(--navy);margin-top:2px;letter-spacing:-.01em}
+ nav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
+ nav a{font-size:12px;font-weight:600;padding:7px 14px;border-radius:3px;
+   color:var(--tx2);transition:.14s;border-bottom:2px solid transparent}
+ nav a:hover{color:var(--navy);background:var(--mut)}
+ nav a.on{color:var(--laranja);border-bottom-color:var(--laranja)}
 
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
-.controls{margin-top:-20px;position:relative;z-index:2;box-shadow:0 8px 28px rgba(0,0,61,.10)}
-.temas{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:17px;margin-bottom:17px;
-  border-bottom:1px solid var(--line)}
-.tb{font-family:inherit;font-size:13px;font-weight:600;padding:9px 16px;border-radius:99px;
-  border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;
-  transition:all .14s}
-.tb:hover:not(.sel){border-color:#C3BAEC;color:var(--ink)}
-.tb.sel{background:var(--navy);border-color:var(--navy);color:#fff}
-.tb.vazio{opacity:.5}
-.tb small{display:inline-block;margin-left:6px;font-size:10px;font-weight:700;opacity:.75}
+ main{padding:30px 0 50px;min-height:70vh}
+ .eyebrow{font-size:9.5px;font-weight:800;letter-spacing:.17em;color:var(--laranja);
+   text-transform:uppercase;margin-bottom:10px}
+ h1{font-size:clamp(25px,3.4vw,37px);font-weight:800;color:var(--navy);
+   letter-spacing:-.025em;line-height:1.12;max-width:23ch}
+ .lead{margin-top:14px;max-width:80ch;color:var(--tx2);font-size:14.5px}
+ .lead b{color:var(--tx);font-weight:600}
+ section{margin-top:34px}
+ .sec-lab{font-size:9.5px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;
+   color:var(--laranja);margin-bottom:7px}
+ h2{font-size:19px;font-weight:700;color:var(--navy);letter-spacing:-.015em}
+ .sec-sub{margin-top:7px;color:var(--tx2);font-size:13px;max-width:88ch}
 
-.ctl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
-label.fl{display:block;font-size:10px;font-weight:700;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-select{width:100%;font-family:inherit;font-size:13px;font-weight:500;color:var(--ink);
-  padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;cursor:pointer}
-select:focus-visible,button:focus-visible,input:focus-visible,.drop:focus-visible,
-[role=button]:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
-.slider-box{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px}
-.slider-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.slider-head b{font-size:13px;font-weight:700}
-.slider-head .hint{font-size:12px;color:var(--muted)}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;
-  margin-top:14px;background:linear-gradient(90deg,var(--cyan),var(--purple));cursor:pointer}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
-  background:#fff;border:3px solid var(--purple);box-shadow:0 2px 6px rgba(0,0,61,.28)}
-input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;
-  border:3px solid var(--purple);box-shadow:0 2px 6px rgba(0,0,61,.28)}
-.scale{display:flex;justify-content:space-between;margin-top:7px;font-size:11px;
-  font-weight:600;color:var(--muted)}
+ .callout{margin-top:18px;border-left:4px solid var(--laranja);background:#FEFAF6;
+   padding:16px 20px}
+ .callout p{font-size:14px;color:var(--tx);max-width:92ch}
+ .callout p+p{margin-top:8px}
+ .callout b{font-weight:700;color:var(--navy)}
+ .callout.navy{border-left-color:var(--navy);background:#F7F9FC}
 
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin-top:20px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
-.kpi .k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:5px;line-height:1.1}
-.kpi .n{font-size:11px;color:var(--muted);margin-top:3px}
-.kpi.lead{background:var(--navy);border-color:var(--navy)}
-.kpi.lead .k{color:var(--cyan)}.kpi.lead .v{color:#fff}.kpi.lead .n{color:#A8A8C8}
+ /* ---------- painel do peso ---------- */
+ .peso{margin-top:22px;border:1px solid var(--linha);border-radius:4px;overflow:hidden}
+ .peso-top{background:var(--navy);color:#fff;padding:14px 22px;display:flex;
+   justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+ .peso-top .t{font-size:13px;font-weight:700;letter-spacing:.02em}
+ .peso-top .v{font-size:13px;font-weight:700;color:#FFC98A}
+ .peso-body{padding:20px 22px 22px}
+ .slider-row{display:flex;align-items:center;gap:16px}
+ .slider-row .lbl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--tx2);white-space:nowrap}
+ .slider-row .lbl.c{color:var(--laranja)}
+ .slider-row .lbl.f{color:var(--navy)}
+ input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;
+   background:linear-gradient(90deg,var(--navy) 0%,#C9CED6 50%,var(--laranja) 100%);outline:none}
+ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;
+   border-radius:50%;background:#fff;border:3px solid var(--laranja);cursor:pointer;
+   box-shadow:0 2px 6px rgba(0,0,0,.18)}
+ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;
+   border:3px solid var(--laranja);cursor:pointer}
+ input[type=range]:focus-visible{outline:2px solid var(--navy);outline-offset:4px}
+ .marcas{display:flex;justify-content:space-between;margin-top:9px;padding:0 2px}
+ .marcas button{font-family:var(--f);font-size:10.5px;font-weight:600;color:var(--tx3);
+   background:none;border:none;cursor:pointer;padding:3px 5px;border-radius:3px}
+ .marcas button:hover{color:var(--laranja);background:var(--laranja-cl)}
+ .marcas button[aria-current="true"]{color:var(--laranja);font-weight:800}
+ .lider{margin-top:16px;padding-top:15px;border-top:1px solid var(--linha);
+   display:flex;gap:26px;flex-wrap:wrap;align-items:baseline}
+ .lider .k{font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+   color:var(--tx3)}
+ .lider .v{font-size:19px;font-weight:800;color:var(--navy);margin-top:1px}
+ .lider .v em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--tx2);margin-left:6px}
 
-h2{font-size:15px;font-weight:700;margin-bottom:3px}
-.sec{margin-top:30px}
-.sec p.lead{font-size:12px;color:var(--muted);margin-bottom:13px;max-width:76ch}
-.rank{display:flex;flex-direction:column;gap:7px}
-.row{display:grid;grid-template-columns:38px 1fr 132px 64px 26px;gap:14px;align-items:center;
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:12px 15px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
-.row:hover{border-color:#C9C4E8;box-shadow:0 3px 12px rgba(0,0,61,.07)}
-.row[aria-expanded=true]{border-color:var(--purple);box-shadow:0 3px 14px rgba(96,0,255,.14)}
-.pos{font-size:17px;font-weight:800;color:var(--navy);text-align:center}
-.pos small{display:block;font-size:9px;font-weight:700;margin-top:1px}
-.up{color:#0E7C4A}.down{color:#B42318}.same{color:#B8B8CC}
-.nm{font-size:14px;font-weight:700}
-.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
-.chip{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;
-  background:#F0EDFC;color:#4A00C2;white-space:nowrap}
-.chip.t3{background:#E4F4FA;color:#0C5E77}.chip.t2{background:#FBF0DA;color:#845209}
-.chip.t1,.chip.t0{background:#EFEFF4;color:#4B4B60}
-.chip.gap{background:#FDF0E6;color:var(--warn)}
-.bars{display:flex;flex-direction:column;gap:4px}
-.bar{display:flex;align-items:center;gap:6px}
-.bar i{font-style:normal;font-size:9px;font-weight:700;color:var(--muted);width:11px}
-.track{flex:1;height:6px;background:#EDEDF4;border-radius:99px;overflow:hidden}
-.fill{height:100%;border-radius:99px;transition:width .35s cubic-bezier(.4,0,.2,1)}
-.fill.c{background:var(--purple)}.fill.f{background:var(--cyan)}
-.sc{font-size:19px;font-weight:800;text-align:right;letter-spacing:-.02em}
-.caret{font-size:11px;color:#B8B8CC;text-align:center}
+ /* ---------- gráfico ---------- */
+ .mapa{margin-top:16px;border:1px solid var(--linha);border-radius:4px;padding:16px 18px}
+ svg{display:block;width:100%;height:auto;overflow:visible}
+ .tick{font-size:9px;fill:#A5ABB2}
+ .axlab{font-size:10px;font-weight:800;fill:var(--navy);letter-spacing:.07em}
+ .qlab{font-size:8.5px;font-weight:800;letter-spacing:.1em}
+ .ptlab{font-size:9.5px;font-weight:700}
+ circle.pt{cursor:pointer;transition:r .18s,fill .18s}
+ .legenda{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;font-size:11.5px;color:var(--tx2)}
+ .legenda i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 
-.detail{background:#FBFAFF;border:1px solid var(--line);border-top:none;
-  border-radius:0 0 var(--r) var(--r);margin-top:-8px;padding:16px 18px 18px}
-.dcols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.dcols h4{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:9px}
-.crit{display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-top:1px solid #EEEDF6}
-.crit:first-of-type{border-top:none}
-.nota{flex-shrink:0;width:21px;height:21px;border-radius:5px;display:grid;place-items:center;
-  font-size:11px;font-weight:800;color:#fff;background:var(--purple)}
-.nota.n0{background:#C7C7DC}.nota.n1{background:#A99BE0}.nota.n2{background:#8055F0}
-.nota.vz{background:#EDEDF4;color:#9B9BB2;font-size:10px}
-.crit em{font-style:normal;font-size:11.5px;line-height:1.35}
-.crit em b{display:block;font-weight:700;font-size:11px;color:var(--navy)}
-.crit em span{color:var(--muted)}
-.dnote{margin-top:14px;font-size:11.5px;color:var(--warn);line-height:1.5}
+ /* ---------- cards ---------- */
+ .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:12px;
+   margin-top:16px}
+ .ct{background:var(--card);border:1px solid var(--linha);border-radius:4px;padding:15px 17px;
+   display:block;transition:.15s;border-top:3px solid var(--linha)}
+ .ct:hover{border-color:var(--laranja-bd);border-top-color:var(--laranja);
+   transform:translateY(-2px);box-shadow:0 5px 16px rgba(16,40,74,.09)}
+ .ct .pos{font-size:9.5px;font-weight:800;letter-spacing:.1em;color:var(--laranja)}
+ .ct h3{font-size:17px;font-weight:800;color:var(--navy);margin-top:2px;letter-spacing:-.01em}
+ .ct .nm{font-size:10.5px;color:var(--tx3);margin-top:3px;line-height:1.35;min-height:2.7em}
+ .ct .barras{margin-top:11px}
+ .bl{display:flex;align-items:center;gap:8px;font-size:10px;margin-bottom:5px}
+ .bl .k{width:64px;font-weight:700;color:var(--tx2);letter-spacing:.03em}
+ .bl .tr{flex:1;height:7px;background:var(--mut);border-radius:99px;overflow:hidden}
+ .bl .tr>i{display:block;height:100%;border-radius:99px}
+ .bl .v{width:34px;text-align:right;font-weight:800;color:var(--navy)}
+ .ct .rod{margin-top:10px;padding-top:9px;border-top:1px solid var(--linha);
+   display:flex;justify-content:space-between;font-size:10.5px;color:var(--tx2)}
+ .ct .rod b{color:var(--navy);font-weight:700}
 
-.plot{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
-svg{display:block;width:100%;height:auto}
-.dot{cursor:pointer}.dot circle{transition:r .15s}.dot:hover circle{r:9}
-.qlab{font-size:9.5px;font-weight:700;letter-spacing:.06em;fill:#C2C2D4;text-transform:uppercase}
-.axl{font-size:10.5px;font-weight:700;fill:var(--muted);letter-spacing:.05em;text-transform:uppercase}
-.dlab{font-size:10px;font-weight:600;fill:var(--navy)}
+ /* ---------- tabelas ---------- */
+ .tab-wrap{margin-top:14px;overflow-x:auto;border:1px solid var(--linha);border-radius:4px}
+ table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff}
+ thead th{background:#fff;color:var(--laranja);font-size:9px;font-weight:800;
+   letter-spacing:.1em;text-transform:uppercase;padding:12px 10px;text-align:left;
+   border-bottom:2px solid var(--laranja);white-space:nowrap}
+ thead th.c{text-align:center}
+ tbody td{padding:10px;border-bottom:1px solid var(--linha);vertical-align:top}
+ tbody td.c{text-align:center}
+ tbody tr:last-child td{border-bottom:none}
+ tbody tr:hover td{background:#FEFAF6}
+ .nota{font-weight:800;font-size:14px;color:var(--navy)}
+ .nota.vaz{color:#CFD3D8;font-weight:600;font-size:12px}
+ .faixa td{background:var(--navy-cl);font-size:9px;font-weight:800;letter-spacing:.11em;
+   text-transform:uppercase;color:var(--navy);padding:8px 10px}
 
-.notes{margin:30px 0 46px;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--r);padding:20px 22px}
-.notes h3{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:11px}
-.notes ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-.notes li{font-size:12.5px;color:#40405C;padding-left:15px;position:relative;line-height:1.55}
-.notes li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;
-  border-radius:50%;background:var(--purple)}
-.notes li.w::before{background:var(--warn)}
-.empty{padding:38px 26px;text-align:center;background:var(--surface);
-  border:1px dashed var(--line);border-radius:var(--r)}
-.empty b{display:block;font-size:14px;font-weight:700;margin-bottom:5px}
-.empty span{font-size:12.5px;color:var(--muted);line-height:1.6}
+ /* ---------- ficha ---------- */
+ .volta{font-size:11.5px;font-weight:700;color:var(--laranja);display:inline-block;
+   margin-bottom:15px}
+ .volta:hover{text-decoration:underline}
+ .placar{display:grid;grid-template-columns:repeat(auto-fit,minmax(188px,1fr));gap:12px;
+   margin-top:20px}
+ .p{border:1px solid var(--linha);border-radius:4px;padding:16px 18px;border-top:3px solid var(--laranja)}
+ .p .k{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--tx2)}
+ .p .v{font-size:33px;font-weight:800;color:var(--navy);line-height:1.05;margin-top:4px}
+ .p .s{margin-top:7px;font-size:11px;color:var(--tx2)}
+ .p .s b{color:var(--navy);font-weight:700}
+ .trilho{height:6px;background:var(--mut);border-radius:99px;overflow:hidden;margin-top:10px}
+ .trilho>i{display:block;height:100%;border-radius:99px;background:var(--laranja)}
 
-@media(max-width:760px){.row{grid-template-columns:30px 1fr 60px;gap:10px}
-  .bars,.caret{display:none}.dcols{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+ footer{border-top:1px solid var(--linha);padding:26px 0 44px;font-size:11.5px;color:var(--tx2)}
+ footer p+p{margin-top:7px}
+ footer b{color:var(--tx);font-weight:600}
+ .abgi{margin-top:24px;padding-top:20px;border-top:1px solid var(--linha);
+   display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+ .abgi .logo{display:inline-flex;align-items:center;justify-content:center;
+   background:var(--navy);color:#fff;font-weight:800;font-size:19px;letter-spacing:-.02em;
+   padding:9px 15px;border-radius:3px}
+ .abgi .logo span{color:var(--laranja)}
+ .abgi .pw{font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+   color:var(--tx3)}
+
+ @media (max-width:700px){
+   nav{margin-left:0;width:100%;margin-top:12px}
+   .slider-row{flex-wrap:wrap}
+   .slider-row .lbl{width:100%}
+   input[type=range]{width:100%;flex:none}
+   .placar{grid-template-columns:1fr 1fr}
+ }
+ @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
+<div class="classif"><div class="wrap"><span>CORPORATIVO | INTERNO</span></div></div>
 
-<header>
- <div class="wrap hrow">
-  <div>
-    <h1>ICTs por <em>tema prioritário</em></h1>
-    <p class="sub">Escolha o tema e o ranking se recalcula. A competência muda de tema para tema; a facilidade de contratação é institucional e vale para todos.</p>
-    <div class="meta" id="meta"></div>
+<header><div class="wrap topo">
+  <div class="marca">
+    <div class="eye">Inteligência Tecnológica · ICTi</div>
+    <div class="nm">ICTs para IA Agêntica e Sistemas de Raciocínio</div>
   </div>
-  <div class="load">
-    <label for="csv">Dados</label>
-    <label class="drop" id="drop" tabindex="0" role="button">
-      <b>Carregar planilha</b>
-      <span>Arraste o CSV ou clique para escolher</span>
-      <input type="file" id="csv" accept=".csv,text/csv">
-    </label>
-    <div class="stat" id="stat">Usando os dados de IA já levantados</div>
+  <nav>
+    <a href="#/">Panorama</a>
+    <a href="#/ranking">Ranking</a>
+    <a href="#/criterios">Critérios</a>
+    <a href="#/metodo">Método</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap" id="app"></div></main>
+
+<footer><div class="wrap">
+  <p><b>Base.</b> Pesquisa bibliométrica em <b>Agentic AI and Reasoning Systems</b> no OpenAlex,
+  produção brasileira de 2023 a 2026, somada a credenciamentos, estrutura instalada e condições
+  de contratação levantadas por instituição.</p>
+  <p><b>Leitura.</b> Competência é a média de doze critérios; facilidade, a média de sete.
+  Ambas variam de 0 a 1. O peso entre os dois eixos é escolha do usuário e não altera os dados,
+  apenas a ordem de prioridade.</p>
+  <p><b>Ressalva.</b> Documento de trabalho, de uso interno. Cada nota tem fonte declarada na
+  aba Critérios.</p>
+  <div class="abgi">
+    <span class="logo">ABG<span>i</span></span>
+    <span class="pw">Powered by ABGi</span>
   </div>
- </div>
-</header>
-
-<div class="wrap">
-  <section class="panel controls" aria-label="Filtros">
-    <div class="temas" id="temas" role="tablist" aria-label="Tema prioritário"></div>
-    <div class="ctl-grid">
-      <div><label class="fl" for="fAd">Aderência ao tema</label>
-        <select id="fAd">
-          <option value="todas">Todas as ICTs</option>
-          <option value="2">Unidade no tema ou adjacente</option>
-          <option value="3">Só unidade EMBRAPII no tema</option>
-        </select></div>
-      <div><label class="fl" for="fReg">Região</label>
-        <select id="fReg"><option value="todas">Todas</option></select></div>
-      <div><label class="fl" for="fEmb">Classificação EMBRAPII</label>
-        <select id="fEmb">
-          <option value="todas">Todas</option>
-          <option value="3">Só Diamante</option>
-          <option value="2">Diamante, Ouro ou Prata</option>
-          <option value="1">Qualquer unidade credenciada</option>
-        </select></div>
-      <div class="slider-box">
-        <div class="slider-head"><b>O que pesa mais na escolha</b>
-          <span class="hint" id="wTxt"></span></div>
-        <input type="range" id="w" min="0" max="100" value="50" step="5"
-          aria-label="Peso entre facilidade de contratação e competência no tema">
-        <div class="scale"><span>Facilidade de contratar</span><span>Competência no tema</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="kpis" id="kpis" aria-live="polite"></section>
-
-  <section class="sec"><h2>Ranking</h2>
-    <p class="lead">Clique numa linha para ver a nota de cada critério. Barra roxa é competência, azul é facilidade.</p>
-    <div class="rank" id="rank"></div></section>
-
-  <section class="sec" id="secPlot"><h2>Competência × facilidade</h2>
-    <p class="lead">Cada ponto é uma ICT. Canto superior direito é onde você quer estar.</p>
-    <div class="plot"><svg id="plot" viewBox="0 0 760 430" role="img"
-      aria-label="Dispersão de competência contra facilidade de contratação"></svg></div></section>
-
-  <section class="notes">
-    <h3>Como o número foi montado</h3>
-    <ul id="notas"></ul>
-  </section>
-</div>
+</div></footer>
 
 <script>
-const REG={
- C1:{n:"Volume de publicações no tema",e:["Menos de 50 trabalhos","50 a 199","200 a 499","500 ou mais"]},
- C2:{n:"Aderência da unidade EMBRAPII ao tema",e:["Não é unidade credenciada","Área não relacionada ao tema","Área adjacente ao tema","Diretamente no tema"]},
- C3:{n:"Classificação de desempenho EMBRAPII",e:["Sem classificação","Bronze","Prata ou Ouro","Diamante"]},
- C4:{n:"Laboratórios e grupos dedicados",e:["Nenhum dedicado","1 a 3","4 a 9","10 ou mais"]},
- F1:{n:"Tempo de tramitação",e:["Acima de 120 dias","91 a 120 dias","46 a 90 dias","Até 45 dias"]},
- F2:{n:"Política de PI",e:["Sem política formal","Cessão restrita","Cessão total, contrapartida sem parâmetro","Cessão total com percentual definido"]},
- F3:{n:"Maturidade da via de contratação",e:["Sem via estruturada","Fundação de maturidade baixa","Fundação de maturidade média","Alta maturidade ou contratação direta"]},
- F4:{n:"Política de transferência de tecnologia",e:["Inexistente","Sem procedimento definido","Política formal com procedimento","NIT ativo, com casos concluídos"]}
-};
-const KC=["C1","C2","C3","C4"], KF=["F1","F2","F3","F4"];
+const D = {"icts": [{"s": "UFAL", "n": "Universidade Federal de Alagoas", "uf": "AL", "reg": "NORDESTE", "comp": 0.6944, "fac": 0.9048, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 2, "C2": 3, "C3": 3, "C4": 2, "C5": 0, "C6": 2, "C7": 3, "C8": 1, "C9": 1, "C10": 2, "C11": 3, "C12": 3, "F1": 3, "F2": 2, "F3": 3, "F4": 3, "F5": 2, "F6": 4, "F7": 3}, "ev": {"C1": "28", "C2": "18", "C3": "69,2%", "C4": "24", "C5": "Nota 3", "C6": "Unidade em área adjacente", "C7": "Diamante", "C8": "15", "C9": "Histórico pontual", "C10": "7", "C11": "30", "C12": "24", "F1": "Até 45 dias", "F2": "Fundação de maturidade média", "F3": "Cessão total com percentual definido", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com grande rede empresarial e histórico de PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Informática", "obs": ""}, {"s": "UFCG", "n": "Universidade Federal de Campina Grande", "uf": "PB", "reg": "NORDESTE", "comp": 0.6389, "fac": 1, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 0, "C2": 1, "C3": 3, "C4": 1, "C5": 2, "C6": 3, "C7": 3, "C8": 0, "C9": 2, "C10": 2, "C11": 3, "C12": 3, "F1": 3, "F2": 3, "F3": 3, "F4": 3, "F5": 3, "F6": 4, "F7": 3}, "ev": {"C1": "21", "C2": "8", "C3": "47,1%", "C4": "13", "C5": "Nota 5", "C6": "Unidade na área de interesse", "C7": "Diamante", "C8": "37", "C9": "Histórico regular", "C10": "7", "C11": "40", "C12": "84", "F1": "Até 45 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total com percentual definido", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Disponível e dedicada exclusivamente ao escopo", "F6": "Ecossistema estruturado, com grande rede empresarial e histórico de PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UFMG", "n": "Universidade Federal de Minas Gerais", "uf": "MG", "reg": "SUDESTE", "comp": 0.9444, "fac": 0.7619, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 3, "C2": 3, "C3": 3, "C4": 3, "C5": 3, "C6": 3, "C7": 2, "C8": 2, "C9": 3, "C10": 3, "C11": 3, "C12": 3, "F1": 2, "F2": 3, "F3": 1, "F4": 1, "F5": 3, "F6": 4, "F7": 3}, "ev": {"C1": "59", "C2": "24", "C3": "43,6%", "C4": "31", "C5": "Nota 7", "C6": "Unidade na área de interesse", "C7": "Ouro", "C8": "11", "C9": "Histórico consistente e bem avaliado", "C10": "13", "C11": "69", "C12": "94", "F1": "De 46 a 90 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Política formal, cessão restrita", "F4": "Minuta própria, pouca margem de ajuste", "F5": "Disponível e dedicada exclusivamente ao escopo", "F6": "Ecossistema estruturado, com grande rede empresarial e histórico de PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UFF", "n": "Universidade Federal Fluminense", "uf": "RJ", "reg": "SUDESTE", "comp": 0.6389, "fac": 0.6786, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 2, "C2": 2, "C3": 3, "C4": 1, "C5": 3, "C6": 0, "C7": 0, "C8": 2, "C9": 1, "C10": 3, "C11": 3, "C12": 3, "F1": 2, "F2": 2, "F3": 2, "F4": 2, "F5": 2, "F6": 3, "F7": 2}, "ev": {"C1": "28", "C2": "10", "C3": "41,7%", "C4": "15", "C5": "Nota 6", "C6": "Não é unidade credenciada", "C7": "Não é unidade / sem classificação", "C8": "6", "C9": "Histórico pontual", "C10": "10", "C11": "35", "C12": "24", "F1": "De 46 a 90 dias", "F2": "Fundação de maturidade média", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com empresas residentes ou parceiras e PD&I", "F7": "Política formal com procedimento"}, "prog": "Computação", "obs": ""}, {"s": "UFSC", "n": "Universidade Federal de Santa Catarina", "uf": "SC", "reg": "SUL", "comp": 0.7222, "fac": 0.7262, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 0, "C2": 1, "C3": 3, "C4": 0, "C5": 3, "C6": 3, "C7": 2, "C8": 2, "C9": 3, "C10": 3, "C11": 3, "C12": 3, "F1": 1, "F2": 3, "F3": 2, "F4": 2, "F5": 2, "F6": 3, "F7": 3}, "ev": {"C1": "21", "C2": "7", "C3": "38,9%", "C4": "0", "C5": "Nota 6", "C6": "Unidade na área de interesse", "C7": "Prata", "C8": "7", "C9": "Histórico consistente e bem avaliado", "C10": "15", "C11": "60", "C12": "35", "F1": "De 91 a 120 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com empresas residentes ou parceiras e PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UFAM", "n": "Universidade Federal do Amazonas", "uf": "AM", "reg": "NORTE", "comp": 0.3889, "fac": 0.6905, "nc": "12 de 12", "nf": "7 de 7", "quad": "3 - Complementar", "notas": {"C1": 1, "C2": 1, "C3": 2, "C4": 2, "C5": 3, "C6": 0, "C7": 0, "C8": 0, "C9": 1, "C10": 2, "C11": 2, "C12": 0, "F1": 2, "F2": 2, "F3": 2, "F4": 2, "F5": 3, "F6": 2, "F7": 2}, "ev": {"C1": "23", "C2": "8", "C3": "38,1%", "C4": "17", "C5": "Nota 6", "C6": "Não é unidade credenciada", "C7": "Não é unidade / sem classificação", "C8": "75", "C9": "Histórico pontual", "C10": "4", "C11": "15", "C12": "0", "F1": "De 46 a 90 dias", "F2": "Fundação de maturidade média", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Disponível e dedicada exclusivamente ao escopo", "F6": "Programa ou estrutura formal de relacionamento universidade–empresa", "F7": "Política formal com procedimento"}, "prog": "Informática", "obs": ""}, {"s": "UFRPE", "n": "Universidade Federal Rural de Pernambuco", "uf": "PE", "reg": "NORDESTE", "comp": 0.5833, "fac": 0.6071, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 2, "C2": 2, "C3": 2, "C4": 3, "C5": 0, "C6": 0, "C7": 0, "C8": 3, "C9": 1, "C10": 3, "C11": 2, "C12": 3, "F1": 3, "F2": 1, "F3": 2, "F4": 2, "F5": 2, "F6": 1, "F7": 2}, "ev": {"C1": "28", "C2": "9", "C3": "34,6%", "C4": "26", "C5": "Nota 3", "C6": "Não é unidade credenciada", "C7": "Não é unidade / sem classificação", "C8": "0", "C9": "Histórico pontual", "C10": "13", "C11": "26", "C12": "62", "F1": "Até 45 dias", "F2": "Fundação de maturidade baixa", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Parcerias pontuais", "F7": "Política formal com procedimento"}, "prog": "Informática Aplicada", "obs": ""}, {"s": "USP", "n": "Universidade de São Paulo", "uf": "SP", "reg": "SUDESTE", "comp": 0.9444, "fac": 0.7143, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 3, "C2": 3, "C3": 2, "C4": 3, "C5": 3, "C6": 3, "C7": 2, "C8": 3, "C9": 3, "C10": 3, "C11": 3, "C12": 3, "F1": 0, "F2": 3, "F3": 2, "F4": 2, "F5": 2, "F6": 4, "F7": 3}, "ev": {"C1": "108", "C2": "32", "C3": "34,0%", "C4": "72", "C5": "Nota 6", "C6": "Unidade na área de interesse", "C7": "Prata", "C8": "3", "C9": "Histórico consistente e bem avaliado", "C10": "20", "C11": "100", "C12": "65", "F1": "Mais de 120 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com grande rede empresarial e histórico de PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UnB", "n": "Universidade de Brasília", "uf": "DF", "reg": "CENTRO-OESTE", "comp": 0.6111, "fac": 0.7738, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 2, "C2": 2, "C3": 2, "C4": 1, "C5": 3, "C6": 0, "C7": 0, "C8": 1, "C9": 2, "C10": 3, "C11": 3, "C12": 3, "F1": 1, "F2": 3, "F3": 2, "F4": 3, "F5": 2, "F6": 3, "F7": 3}, "ev": {"C1": "38", "C2": "10", "C3": "33,3%", "C4": "16", "C5": "Nota 6", "C6": "Não é unidade credenciada", "C7": "Não é unidade / sem classificação", "C8": "25", "C9": "Histórico regular", "C10": "10", "C11": "40", "C12": "37", "F1": "De 91 a 120 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com empresas residentes ou parceiras e PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Informática", "obs": ""}, {"s": "UFPE", "n": "Universidade Federal de Pernambuco", "uf": "PE", "reg": "NORDESTE", "comp": 0.8056, "fac": 0.9524, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 2, "C2": 2, "C3": 2, "C4": 2, "C5": 3, "C6": 3, "C7": 2, "C8": 1, "C9": 3, "C10": 3, "C11": 3, "C12": 3, "F1": 3, "F2": 3, "F3": 3, "F4": 3, "F5": 2, "F6": 4, "F7": 3}, "ev": {"C1": "30", "C2": "9", "C3": "32,1%", "C4": "18", "C5": "Nota 7", "C6": "Unidade na área de interesse", "C7": "Prata", "C8": "20", "C9": "Histórico consistente e bem avaliado", "C10": "15", "C11": "70", "C12": "50", "F1": "Até 45 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total com percentual definido", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com grande rede empresarial e histórico de PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UNICAMP", "n": "Universidade Estadual de Campinas", "uf": "SP", "reg": "SUDESTE", "comp": 0.8333, "fac": 0.7262, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 3, "C2": 3, "C3": 1, "C4": 3, "C5": 3, "C6": 1, "C7": 1, "C8": 3, "C9": 3, "C10": 3, "C11": 3, "C12": 3, "F1": 1, "F2": 3, "F3": 2, "F4": 2, "F5": 2, "F6": 3, "F7": 3}, "ev": {"C1": "81", "C2": "24", "C3": "32,0%", "C4": "41", "C5": "Nota 7", "C6": "Unidade em área não relacionada", "C7": "Bronze", "C8": "4", "C9": "Histórico consistente e bem avaliado", "C10": "15", "C11": "80", "C12": "73", "F1": "De 91 a 120 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com empresas residentes ou parceiras e PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UFSCar", "n": "Universidade Federal de São Carlos", "uf": "SP", "reg": "SUDESTE", "comp": 0.5, "fac": 0.7381, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 1, "C2": 1, "C3": 1, "C4": 0, "C5": 2, "C6": 1, "C7": 2, "C8": 0, "C9": 1, "C10": 3, "C11": 3, "C12": 3, "F1": 2, "F2": 3, "F3": 2, "F4": 2, "F5": 2, "F6": 2, "F7": 3}, "ev": {"C1": "25", "C2": "7", "C3": "31,8%", "C4": "0", "C5": "Nota 5", "C6": "Unidade em área não relacionada", "C7": "Prata", "C8": "36", "C9": "Histórico pontual", "C10": "10", "C11": "40", "C12": "26", "F1": "De 46 a 90 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Programa ou estrutura formal de relacionamento universidade–empresa", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UFRJ", "n": "Universidade Federal do Rio de Janeiro", "uf": "RJ", "reg": "SUDESTE", "comp": 0.6944, "fac": 0.7738, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 1, "C2": 0, "C3": 1, "C4": 0, "C5": 3, "C6": 2, "C7": 3, "C8": 3, "C9": 3, "C10": 3, "C11": 3, "C12": 3, "F1": 2, "F2": 3, "F3": 2, "F4": 2, "F5": 2, "F6": 3, "F7": 3}, "ev": {"C1": "23", "C2": "6", "C3": "30,0%", "C4": "0", "C5": "Nota 7", "C6": "Unidade em área adjacente", "C7": "Diamante", "C8": "1", "C9": "Histórico consistente e bem avaliado", "C10": "15", "C11": "80", "C12": "53", "F1": "De 46 a 90 dias", "F2": "Alta maturidade ou contratação direta", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com empresas residentes ou parceiras e PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Engenharia de Sistemas e Computação", "obs": ""}, {"s": "UFRGS", "n": "Universidade Federal do Rio Grande do Sul", "uf": "RS", "reg": "SUL", "comp": 0.7222, "fac": 0.6429, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 3, "C2": 2, "C3": 1, "C4": 0, "C5": 3, "C6": 2, "C7": 1, "C8": 3, "C9": 2, "C10": 3, "C11": 3, "C12": 3, "F1": 1, "F2": 2, "F3": 2, "F4": 2, "F5": 2, "F6": 2, "F7": 3}, "ev": {"C1": "40", "C2": "11", "C3": "29,7%", "C4": "0", "C5": "Nota 7", "C6": "Unidade em área adjacente", "C7": "Bronze", "C8": "5", "C9": "Histórico regular", "C10": "15", "C11": "60", "C12": "30", "F1": "De 91 a 120 dias", "F2": "Fundação de maturidade média", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Programa ou estrutura formal de relacionamento universidade–empresa", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Computação", "obs": ""}, {"s": "PUC-Rio", "n": "Pontifícia Universidade Católica do Rio de Janeiro", "uf": "RJ", "reg": "SUDESTE", "comp": 0.7778, "fac": 0.631, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 3, "C2": 3, "C3": 0, "C4": 3, "C5": 3, "C6": 3, "C7": 1, "C8": 3, "C9": 3, "C10": 3, "C11": 3, "C12": 0, "F1": 3, "F2": 0, "F3": 1, "F4": 2, "F5": 2, "F6": 3, "F7": 3}, "ev": {"C1": "56", "C2": "14", "C3": "28,6%", "C4": "28", "C5": "Nota 7", "C6": "Unidade na área de interesse", "C7": "Bronze", "C8": "2", "C9": "Histórico consistente e bem avaliado", "C10": "15", "C11": "70", "C12": "0", "F1": "Até 45 dias", "F2": "Sem fundação estruturada e sem via direta", "F3": "Política formal, cessão restrita", "F4": "Minuta própria padronizada", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com empresas residentes ou parceiras e PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Informática", "obs": ""}, {"s": "UFG", "n": "Universidade Federal de Goiás", "uf": "GO", "reg": "CENTRO-OESTE", "comp": 0.5833, "fac": 0.8095, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 2, "C2": 1, "C3": 0, "C4": 2, "C5": 2, "C6": 3, "C7": 3, "C8": 0, "C9": 2, "C10": 3, "C11": 3, "C12": 0, "F1": 1, "F2": 2, "F3": 3, "F4": 3, "F5": 2, "F6": 4, "F7": 3}, "ev": {"C1": "33", "C2": "7", "C3": "24,1%", "C4": "18", "C5": "Nota 5", "C6": "Unidade na área de interesse", "C7": "Diamante", "C8": "27", "C9": "Histórico regular", "C10": "10", "C11": "30", "C12": "0", "F1": "De 91 a 120 dias", "F2": "Fundação de maturidade média", "F3": "Cessão total com percentual definido", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Laboratórios + espaço compartilhado", "F6": "Ecossistema estruturado, com grande rede empresarial e histórico de PD&I", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UTFPR", "n": "Universidade Tecnológica Federal do Paraná", "uf": "PR", "reg": "SUL", "comp": 0.4167, "fac": 0.6429, "nc": "12 de 12", "nf": "7 de 7", "quad": "3 - Complementar", "notas": {"C1": 0, "C2": 0, "C3": 0, "C4": 2, "C5": 0, "C6": 0, "C7": 0, "C8": 2, "C9": 2, "C10": 3, "C11": 3, "C12": 3, "F1": 1, "F2": 1, "F3": 2, "F4": 3, "F5": 2, "F6": 2, "F7": 3}, "ev": {"C1": "20", "C2": "4", "C3": "23,5%", "C4": "18", "C5": "Nota 3", "C6": "Não é unidade credenciada", "C7": "Não é unidade / sem classificação", "C8": "9", "C9": "Histórico regular", "C10": "15", "C11": "60", "C12": "23", "F1": "De 91 a 120 dias", "F2": "Fundação de maturidade baixa", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Laboratórios + espaço compartilhado", "F6": "Programa ou estrutura formal de relacionamento universidade–empresa", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UFBA", "n": "Universidade Federal da Bahia", "uf": "BA", "reg": "NORDESTE", "comp": 0.3889, "fac": 0.6905, "nc": "12 de 12", "nf": "7 de 7", "quad": "3 - Complementar", "notas": {"C1": 0, "C2": 0, "C3": 0, "C4": 0, "C5": 3, "C6": 0, "C7": 0, "C8": 1, "C9": 1, "C10": 3, "C11": 3, "C12": 3, "F1": 2, "F2": 2, "F3": 2, "F4": 3, "F5": 2, "F6": 2, "F7": 2}, "ev": {"C1": "21", "C2": "4", "C3": "22,2%", "C4": "0", "C5": "Nota 6", "C6": "Não é unidade credenciada", "C7": "Não é unidade / sem classificação", "C8": "23", "C9": "Histórico pontual", "C10": "10", "C11": "40", "C12": "25", "F1": "De 46 a 90 dias", "F2": "Fundação de maturidade média", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Laboratórios + espaço compartilhado", "F6": "Programa ou estrutura formal de relacionamento universidade–empresa", "F7": "Política formal com procedimento"}, "prog": "Ciências da Computação", "obs": ""}, {"s": "UFC", "n": "Universidade Federal do Ceará", "uf": "CE", "reg": "NORDESTE", "comp": 0.5278, "fac": 0.7381, "nc": "12 de 12", "nf": "7 de 7", "quad": "1 - Curto prazo", "notas": {"C1": 0, "C2": 0, "C3": 0, "C4": 1, "C5": 2, "C6": 2, "C7": 1, "C8": 2, "C9": 2, "C10": 3, "C11": 3, "C12": 3, "F1": 2, "F2": 2, "F3": 2, "F4": 3, "F5": 2, "F6": 2, "F7": 3}, "ev": {"C1": "21", "C2": "4", "C3": "20,0%", "C4": "14", "C5": "Nota 5", "C6": "Unidade em área adjacente", "C7": "Bronze", "C8": "10", "C9": "Histórico regular", "C10": "10", "C11": "50", "C12": "44", "F1": "De 46 a 90 dias", "F2": "Fundação de maturidade média", "F3": "Cessão total prevista, contrapartida sem parâmetro", "F4": "Modelo padronizado consolidado (AGU)", "F5": "Laboratórios + espaço compartilhado", "F6": "Programa ou estrutura formal de relacionamento universidade–empresa", "F7": "NIT ativo, com casos de TT concluídos"}, "prog": "Ciências da Computação", "obs": ""}], "rot": {"C1": {"nome": "Volume bruto de publicações", "campo": "Publicações na área (total)"}, "C2": {"nome": "Volume de excelência", "campo": "Trabalhos com FWCI ≥ 1"}, "C3": {"nome": "Taxa de excelência", "campo": "Taxa de excelência"}, "C4": {"nome": "Centralidade na rede", "campo": "Total link strength"}, "C5": {"nome": "Nota CAPES", "campo": "Nota CAPES"}, "C6": {"nome": "Aderência da unidade EMBRAPII", "campo": "Unidade EMBRAPII — aderência"}, "C7": {"nome": "Ranking de desempenho EMBRAPII", "campo": "Ranking EMBRAPII"}, "C8": {"nome": "Ranking ANP", "campo": "Ranking ANP (posição)"}, "C9": {"nome": "Histórico em projetos ANEEL", "campo": "Histórico ANEEL"}, "C10": {"nome": "Laboratórios dedicados", "campo": "Laboratórios em TIC"}, "C11": {"nome": "Pesquisadores ativos", "campo": "Pesquisadores em TIC"}, "C12": {"nome": "Patentes depositadas no último ano", "campo": "Patentes depositadas (último ano)"}, "F1": {"nome": "Tempo de tramitação", "campo": "Tempo de tramitação"}, "F2": {"nome": "Maturidade da via de contratação", "campo": "Maturidade da via de contratação"}, "F3": {"nome": "Política de PI", "campo": "Política de PI"}, "F4": {"nome": "Minutas e instrumento contratual", "campo": "Minutas"}, "F5": {"nome": "Disponibilidade de infraestrutura", "campo": "Disponibilidade de infraestrutura"}, "F6": {"nome": "Estrutura de parceria empresarial", "campo": "Estrutura de parceria empresarial"}, "F7": {"nome": "Política de transferência de tecnologia", "campo": "Política de transferência de tecnologia"}}};
+const ICTS = D.icts, ROT = D.rot;
+const CS = Object.keys(ROT).filter(k => k[0] === "C");
+const FS = Object.keys(ROT).filter(k => k[0] === "F");
+const app = document.getElementById("app");
+let W = 50;                       // peso da competência, 0 a 100
 
-const PADRAO=[
- ["Inteligência Artificial","UFCG","NORDESTE",1,2,3,3,3,3,3,null,"Unidade em software e automação; centro de competência em hardware inteligente. 135 publicações."],
- ["Inteligência Artificial","UFPE","NORDESTE",3,3,1,null,3,2,3,null,"CIn-UFPE: unidade diretamente em IA, sistemas digitais e veiculares. 592 publicações."],
- ["Inteligência Artificial","USP","SUDESTE",3,1,2,null,0,2,3,null,"Unidade EMBRAPII de fármacos. Lidera publicação com 1.409 trabalhos, tramitação de 4 a 6 meses."],
- ["Inteligência Artificial","UFRN","NORDESTE",2,2,1,null,2,3,2,null,"IoT e cloud, adjacente a IA. PI de 2% para cessão total, a mais baixa do conjunto."],
- ["Inteligência Artificial","UFF","SUDESTE",2,0,0,null,2,null,null,null,"Não é unidade EMBRAPII. 409 publicações em IA."],
- ["Inteligência Artificial","UFPR","SUL",2,1,0,null,3,null,2,null,"Unidade de baixo carbono, não relacionada a IA. Tramitação de 30 a 40 dias."],
- ["Inteligência Artificial","UFG - CEIA","CENTRO OESTE",2,3,3,null,2,2,3,null,"Única unidade EMBRAPII Diamante dedicada a IA."],
- ["Inteligência Artificial","CIMATEC","NORDESTE",1,2,3,null,null,2,3,null,"Soluções industriais, adjacente. ICT privada: entregável contratado em vez de artigo."],
- ["Inteligência Artificial","ELDORADO","SUDESTE",0,2,2,null,null,2,3,null,"Embarcado, adjacente. Fora do top 200 do corpus de IA por ser ICT privada."],
- ["Inteligência Artificial","UFRJ","SUDESTE",3,1,3,null,2,null,3,null,"Unidade Diamante, porém em engenharia de petróleo. 613 publicações em IA."],
- ["Inteligência Artificial","UFMG","SUDESTE",3,2,1,null,2,2,3,null,"Inclui Software para Sistemas Ciberfísicos. 774 publicações em IA."],
- ["Inteligência Artificial","ITA","SUDESTE",1,1,3,null,0,null,2,null,"Unidade Diamante em sistemas de transmissão de potência. Tramitação de 9 meses."]
-].map(a=>({tema:a[0],ict:a[1],regiao:a[2],C1:a[3],C2:a[4],C3:a[5],C4:a[6],
-           F1:a[7],F2:a[8],F3:a[9],F4:a[10],obs:a[11]}));
+const esc = s => String(s ?? "").replace(/[&<>"]/g,
+  c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const br = v => v == null ? "—" : v.toFixed(2).replace(".", ",");
+const nd = v => (v == null || v === "") ? "—" : String(v);
+const score = (i, w) => (w/100) * i.comp + (1 - w/100) * i.fac;
+const ranked = w => ICTS.slice().sort((a,b) => score(b,w) - score(a,w));
 
-const NOTAS_PADRAO=[
- ["Competência no tema","média das notas C1 a C4, dividida por 3. Varia de 0 a 1.",0],
- ["Facilidade de contratação","média das notas F1 a F4, dividida por 3. É institucional: não muda conforme o tema.",0],
- ["Média simples","nenhum critério pesa mais que outro. Método adaptado dos indicadores sistêmicos GESEL-UFRJ / RedeSist.",0],
- ["Vazio não é zero","critério em branco sai da média. Zero é a pior nota real; branco é ausência de levantamento.",0],
- ["Cobertura","o selo <b>dado parcial</b> marca ICT com menos de 3 critérios preenchidos em algum eixo. Compare com cuidado.",1]
-];
+/* ============================ PANORAMA ============================ */
+function panorama() {
+  app.innerHTML = `
+    <div class="eyebrow">Recomendação por prioridade</div>
+    <h1>Qual ICT para cada perfil de projeto</h1>
+    <p class="lead">
+      Dezenove instituições avaliadas em <b>dezenove critérios</b>: doze de competência e sete
+      de facilidade de contratar. A ordem muda conforme o que você prioriza — mova o controle
+      abaixo e o gráfico e os cards se reorganizam. <b>Os dados não mudam</b>, apenas o peso que
+      cada eixo tem na decisão.
+    </p>
 
-let DADOS=PADRAO.slice(), tema=null, aberta=null;
-const $=id=>document.getElementById(id);
-const br=n=>n.toFixed(2).replace(".",",");
-const media=a=>{const v=a.filter(x=>x!=null&&x!=="");return v.length?v.reduce((s,x)=>s+ +x,0)/v.length:null};
-
-function calc(){
-  DADOS.forEach(d=>{
-    d.nC=KC.map(k=>d[k]); d.nF=KF.map(k=>d[k]);
-    d.cobC=d.nC.filter(x=>x!=null).length; d.cobF=d.nF.filter(x=>x!=null).length;
-    const mc=media(d.nC), mf=media(d.nF);
-    d.comp=mc==null?null:mc/3; d.fac=mf==null?null:mf/3;
-    d.ok=d.comp!=null&&d.fac!=null;
-  });
-}
-const score=(d,w)=>w*d.comp+(1-w)*d.fac;
-const temasLista=()=>[...new Set(DADOS.map(d=>d.tema))].filter(Boolean);
-const doTema=t=>DADOS.filter(d=>d.tema===t&&d.ok);
-
-function montarTemas(){
-  const ts=temasLista();
-  if(!ts.includes(tema))tema=ts.find(t=>doTema(t).length)||ts[0]||null;
-  $("temas").innerHTML=ts.map(t=>{
-    const n=doTema(t).length;
-    return `<button class="tb${t===tema?" sel":""}${n?"":" vazio"}" role="tab"
-      aria-selected="${t===tema}" data-t="${t}">${t}<small>${n||"—"}</small></button>`;
-  }).join("")||'<span style="font-size:12px;color:var(--muted)">Nenhum tema nos dados carregados.</span>';
-  document.querySelectorAll(".tb").forEach(b=>b.addEventListener("click",()=>{
-    tema=b.dataset.t;aberta=null;montarTemas();render()}));
-
-  const regs=[...new Set(DADOS.filter(d=>d.tema===tema).map(d=>d.regiao))].filter(Boolean).sort();
-  const at=$("fReg").value;
-  $("fReg").innerHTML='<option value="todas">Todas</option>'+regs.map(r=>`<option>${r}</option>`).join("");
-  if(regs.includes(at))$("fReg").value=at;
-
-  $("meta").innerHTML=[`${ts.length} tema${ts.length>1?"s":""}`,
-    `${new Set(DADOS.map(d=>d.ict)).size} ICTs`,
-    `${DADOS.filter(d=>d.ok).length} avaliações completas`]
-    .map(s=>`<span>${s}</span>`).join("");
-  $("notas").innerHTML=NOTAS_PADRAO.map(([t,d,w])=>
-    `<li class="${w?"w":""}"><b>${t}</b> — ${d}</li>`).join("");
-}
-
-function filtrar(){
-  const a=$("fAd").value,r=$("fReg").value,e=$("fEmb").value;
-  return doTema(tema).filter(d=>{
-    if(a!=="todas"&&!(d.C2>=+a))return false;
-    if(r!=="todas"&&d.regiao!==r)return false;
-    if(e!=="todas"&&!(d.C3>=+e))return false;
-    return true;
-  });
-}
-
-function render(){
-  const w=+$("w").value/100;
-  $("wTxt").textContent=`${Math.round(w*100)}% competência · ${Math.round((1-w)*100)}% facilidade`;
-  const lista=filtrar().slice().sort((x,y)=>score(y,w)-score(x,w)||y.comp-x.comp);
-  const base=filtrar().slice().sort((x,y)=>score(y,.5)-score(x,.5)||y.comp-x.comp);
-  const pb=new Map(base.map((d,i)=>[d.ict,i]));
-
-  if(!lista.length){
-    $("kpis").innerHTML="";$("secPlot").style.display="none";
-    const semTema=!doTema(tema).length;
-    $("rank").innerHTML=`<div class="empty"><b>${semTema?"Tema ainda sem pontuação":"Nenhuma ICT passa nesses filtros"}</b>
-      <span>${semTema
-        ?"Preencha as notas deste tema na aba <b>Competência por tema</b> da planilha, salve a aba <b>Exportar</b> como CSV e carregue aqui."
-        :"Afrouxe um dos filtros acima."}</span></div>`;
-    return;
-  }
-  $("secPlot").style.display="";
-
-  const top=lista[0], parciais=lista.filter(d=>d.cobC<3||d.cobF<3).length;
-  const noTema=lista.filter(d=>d.C2>=2).length;
-  const mediaC=media(lista.map(d=>d.comp)), mediaF=media(lista.map(d=>d.fac));
-  $("kpis").innerHTML=`
-   <div class="kpi lead"><div class="k">Melhor colocada</div><div class="v">${top.ict}</div>
-     <div class="n">nota ${br(score(top,w))} de 1,00</div></div>
-   <div class="kpi"><div class="k">ICTs no filtro</div><div class="v">${lista.length}</div>
-     <div class="n">de ${doTema(tema).length} avaliadas no tema</div></div>
-   <div class="kpi"><div class="k">Competência média</div><div class="v">${br(mediaC)}</div>
-     <div class="n">do conjunto filtrado</div></div>
-   <div class="kpi"><div class="k">Facilidade média</div><div class="v">${br(mediaF)}</div>
-     <div class="n">institucional, igual em todo tema</div></div>
-   <div class="kpi"><div class="k">Aderentes ao tema</div><div class="v">${noTema}</div>
-     <div class="n">unidade EMBRAPII no tema ou adjacente</div></div>`;
-
-  $("rank").innerHTML=lista.map((d,i)=>{
-    const dl=pb.has(d.ict)?pb.get(d.ict)-i:0;
-    const mv=dl>0?`<small class="up">▲${dl}</small>`:dl<0?`<small class="down">▼${-dl}</small>`:`<small class="same">—</small>`;
-    const parcial=d.cobC<3||d.cobF<3;
-    const crit=(ks,d)=>ks.map(k=>{
-      const v=d[k], t=v==null?"não levantado":REG[k].e[v];
-      return `<div class="crit"><div class="nota ${v==null?"vz":"n"+v}">${v==null?"–":v}</div>
-        <em><b>${REG[k].n}</b><span>${t}</span></em></div>`}).join("");
-    const det=aberta===d.ict?`<div class="detail">
-      <div class="dcols">
-        <div><h4>Competência no tema · ${br(d.comp)}</h4>${crit(KC,d)}</div>
-        <div><h4>Facilidade de contratação · ${br(d.fac)}</h4>${crit(KF,d)}</div>
+    <section>
+      <div class="sec-lab">Passo 1</div>
+      <h2>O que pesa mais na escolha</h2>
+      <p class="sec-sub">Arraste para a esquerda se o obstáculo é contratar; para a direita se
+        o desafio exige competência técnica que nem toda instituição tem.</p>
+      <div class="peso">
+        <div class="peso-top">
+          <span class="t">Peso dos eixos na decisão</span>
+          <span class="v" id="peso-v"></span>
+        </div>
+        <div class="peso-body">
+          <div class="slider-row">
+            <span class="lbl f">← Facilidade de contratar</span>
+            <input type="range" id="sl" min="0" max="100" step="5" value="50"
+                   aria-label="Peso da competência em relação à facilidade">
+            <span class="lbl c">Competência técnica →</span>
+          </div>
+          <div class="marcas" id="marcas"></div>
+          <div class="lider" id="lider"></div>
+        </div>
       </div>
-      ${d.obs?`<p class="dnote">${d.obs}</p>`:""}
-      ${parcial?`<p class="dnote">Cobertura: ${d.cobC} de 4 em competência, ${d.cobF} de 4 em facilidade.</p>`:""}
-    </div>`:"";
-    return `<div class="row" role="button" tabindex="0" data-i="${d.ict}" aria-expanded="${aberta===d.ict}">
-      <div class="pos">${i+1}${mv}</div>
-      <div><div class="nm">${d.ict}</div><div class="chips">
-        <span class="chip">${REG.C2.e[d.C2]??"aderência não levantada"}</span>
-        ${d.C3!=null?`<span class="chip t${d.C3}">${REG.C3.e[d.C3]}</span>`:""}
-        <span class="chip">${d.regiao}</span>
-        ${parcial?'<span class="chip gap">dado parcial</span>':""}</div></div>
-      <div class="bars">
-        <div class="bar"><i>C</i><div class="track"><div class="fill c" style="width:${d.comp*100}%"></div></div></div>
-        <div class="bar"><i>F</i><div class="track"><div class="fill f" style="width:${d.fac*100}%"></div></div></div></div>
-      <div class="sc">${br(score(d,w))}</div>
-      <div class="caret">${aberta===d.ict?"▲":"▼"}</div>
-    </div>${det}`;
-  }).join("");
+    </section>
 
-  document.querySelectorAll(".row").forEach(el=>{
-    const t=()=>{aberta=aberta===el.dataset.i?null:el.dataset.i;render()};
-    el.addEventListener("click",t);
-    el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();t()}});
+    <section>
+      <div class="sec-lab">Passo 2</div>
+      <h2>Competência × facilidade</h2>
+      <p class="sec-sub">Cada ponto é uma instituição. A posição vem dos dados e não muda.
+        O que muda é a cor e a linha diagonal: ela marca a fronteira do peso escolhido, e quem
+        está acima dela é prioridade sob esse critério.</p>
+      <div class="mapa" id="mapa"></div>
+      <div class="legenda">
+        <span><i style="background:var(--laranja)"></i>Prioridade sob o peso atual</span>
+        <span><i style="background:#A9B0BA"></i>Demais instituições</span>
+        <span style="color:var(--tx)">Tamanho do ponto = posição no ranking</span>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-lab">Passo 3</div>
+      <h2>Fichas das instituições</h2>
+      <p class="sec-sub">Ordenadas pelo peso escolhido. Clique para abrir a ficha completa, com
+        a nota de cada um dos dezenove critérios e a evidência que a sustenta.</p>
+      <div class="grade" id="grade"></div>
+    </section>`;
+
+  const sl = document.getElementById("sl");
+  sl.value = W;
+  sl.addEventListener("input", e => { W = +e.target.value; render(); });
+  document.getElementById("marcas").innerHTML =
+    [[0,"Só facilidade"],[25,"75/25"],[50,"Equilíbrio"],[75,"25/75"],[100,"Só competência"]]
+    .map(([v,t]) => `<button data-v="${v}">${t}</button>`).join("");
+  document.getElementById("marcas").addEventListener("click", ev => {
+    const b = ev.target.closest("button"); if (!b) return;
+    W = +b.dataset.v; sl.value = W; render();
   });
-  desenhar(lista);
+  render();
 }
 
-function desenhar(lista){
-  const W=760,H=430,m={t:26,r:26,b:52,l:60},iw=W-m.l-m.r,ih=H-m.t-m.b;
-  const X=v=>m.l+v*iw, Y=v=>m.t+(1-v)*ih;
-  let g=`<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="#FBFBFE"/>`;
-  for(let i=0;i<=4;i++){const p=i/4;
-    g+=`<line x1="${X(p)}" y1="${m.t}" x2="${X(p)}" y2="${m.t+ih}" stroke="#EDEDF4"/>
-        <line x1="${m.l}" y1="${Y(p)}" x2="${m.l+iw}" y2="${Y(p)}" stroke="#EDEDF4"/>
-        <text x="${X(p)}" y="${m.t+ih+17}" text-anchor="middle" font-size="10" fill="#9B9BB2">${br(p)}</text>
-        <text x="${m.l-9}" y="${Y(p)+3.5}" text-anchor="end" font-size="10" fill="#9B9BB2">${br(p)}</text>`}
-  g+=`<line x1="${X(.5)}" y1="${m.t}" x2="${X(.5)}" y2="${m.t+ih}" stroke="#C7C7DC" stroke-dasharray="4 4"/>
-      <line x1="${m.l}" y1="${Y(.5)}" x2="${m.l+iw}" y2="${Y(.5)}" stroke="#C7C7DC" stroke-dasharray="4 4"/>
-      <text class="qlab" x="${X(.97)}" y="${Y(.96)}" text-anchor="end">Prioridade</text>
-      <text class="qlab" x="${X(.03)}" y="${Y(.96)}">Complementar</text>
-      <text class="qlab" x="${X(.97)}" y="${Y(.02)}" text-anchor="end">Exige estruturação</text>
-      <text class="qlab" x="${X(.03)}" y="${Y(.02)}">Baixa prioridade</text>
-      <text class="axl" x="${m.l+iw/2}" y="${H-9}" text-anchor="middle">Competência no tema</text>
-      <text class="axl" transform="rotate(-90 15 ${m.t+ih/2})" x="15" y="${m.t+ih/2}" text-anchor="middle">Facilidade de contratação</text>`;
-  const pts=lista.map(d=>({d,x:X(d.comp),y:Y(d.fac)})),postos=[],OFF=[-13,17,-26,30,-39,43,-52,56];
-  pts.forEach(({d,x,y})=>{
-    const lg=d.ict.length*5.6; let lx=x,anc="middle";
-    if(lx-lg/2<m.l+4){lx=m.l+4;anc="start"}else if(lx+lg/2>m.l+iw-4){lx=m.l+iw-4;anc="end"}
-    const bate=ly=>postos.some(u=>Math.abs(u.x-lx)<(u.w+lg)/2+6&&Math.abs(u.y-ly)<12)
-      ||pts.some(o=>Math.abs(o.x-lx)<lg/2+9&&Math.abs(o.y-ly)<11);
-    let ly=y+OFF[0]; for(const o of OFF){ly=y+o;if(!bate(ly))break}
-    postos.push({x:lx,y:ly,w:lg});
-    const cor=d.C2===3?"#6000FF":d.C2===2?"#9B6BFF":"#B9B9CE";
-    g+=`<g class="dot" data-i="${d.ict}"><title>${d.ict}\ncompetência ${br(d.comp)} · facilidade ${br(d.fac)}</title>
-        <circle cx="${x}" cy="${y}" r="6.5" fill="${cor}" fill-opacity=".9" stroke="#fff" stroke-width="1.6"/>
-        <text class="dlab" x="${lx}" y="${ly}" text-anchor="${anc}">${d.ict}</text></g>`});
-  $("plot").innerHTML=g;
-  document.querySelectorAll(".dot").forEach(el=>el.addEventListener("click",()=>{
-    aberta=aberta===el.dataset.i?null:el.dataset.i;render();
-    document.querySelector(`.row[data-i="${el.dataset.i}"]`)?.scrollIntoView({block:"center",behavior:"smooth"})}));
+function render() {
+  const r = ranked(W), lider = r[0];
+  document.getElementById("peso-v").textContent =
+    `${W}% competência · ${100-W}% facilidade`;
+  document.querySelectorAll("#marcas button").forEach(b =>
+    b.setAttribute("aria-current", +b.dataset.v === W));
+
+  const base = ranked(50);
+  const salto = r.map((i,k) => ({ i, k, d: base.findIndex(x=>x.s===i.s) - k }));
+  const sobe = salto.filter(x => x.d > 0).sort((a,b) => b.d - a.d)[0];
+  document.getElementById("lider").innerHTML = `
+    <div><div class="k">Primeira colocada</div>
+      <div class="v">${esc(lider.s)}<em>score ${br(score(lider,W))}</em></div></div>
+    <div><div class="k">Competência</div><div class="v">${br(lider.comp)}</div></div>
+    <div><div class="k">Facilidade</div><div class="v">${br(lider.fac)}</div></div>
+    ${sobe && sobe.d > 0 ? `<div><div class="k">Quem mais sobe vs. equilíbrio</div>
+      <div class="v">${esc(sobe.i.s)}<em>+${sobe.d} posições</em></div></div>` : ""}`;
+
+  document.getElementById("mapa").innerHTML = dispersao(r);
+  document.getElementById("grade").innerHTML = r.map((i,k) => card(i,k+1)).join("");
 }
 
-/* ---------- CSV ---------- */
-function parseCSV(txt){
-  txt=txt.replace(/^\uFEFF/,"").replace(/\r\n?/g,"\n");
-  const cab=txt.slice(0,txt.indexOf("\n"));
-  const sep=(cab.match(/;/g)||[]).length>(cab.match(/,/g)||[]).length?";":",";
-  const linhas=[];let campo="",lin=[],asp=false;
-  for(let i=0;i<txt.length;i++){const c=txt[i];
-    if(asp){ if(c==='"'){ if(txt[i+1]==='"'){campo+='"';i++} else asp=false } else campo+=c }
-    else if(c==='"')asp=true;
-    else if(c===sep){lin.push(campo);campo=""}
-    else if(c==="\n"){lin.push(campo);linhas.push(lin);lin=[];campo=""}
-    else campo+=c}
-  if(campo!==""||lin.length){lin.push(campo);linhas.push(lin)}
-  return linhas.filter(l=>l.some(x=>x.trim()!==""));
-}
-function carregar(txt){
-  const l=parseCSV(txt);
-  if(l.length<2)throw new Error("O arquivo não tem linhas de dados.");
-  const cab=l[0].map(h=>h.trim().toLowerCase());
-  const idx={};["tema","ict","regiao","c1","c2","c3","c4","f1","f2","f3","f4","obs"]
-    .forEach(k=>idx[k]=cab.indexOf(k));
-  const falta=["tema","ict"].filter(k=>idx[k]<0);
-  if(falta.length)throw new Error("Faltam as colunas: "+falta.join(", ")+". Exporte a aba Exportar da planilha.");
-  const num=v=>{v=(v||"").trim();if(v==="")return null;const n=+v.replace(",",".");
-    return Number.isFinite(n)&&n>=0&&n<=3?Math.round(n):null};
-  const out=[];
-  l.slice(1).forEach(r=>{
-    const tema=(r[idx.tema]||"").trim(), ict=(r[idx.ict]||"").trim();
-    if(!tema||!ict)return;
-    const o={tema,ict,regiao:idx.regiao>=0?(r[idx.regiao]||"").trim():"",
-             obs:idx.obs>=0?(r[idx.obs]||"").trim():""};
-    [...KC,...KF].forEach(k=>o[k]=idx[k.toLowerCase()]>=0?num(r[idx[k.toLowerCase()]]):null);
-    out.push(o);
+/* ---------------- dispersão ---------------- */
+function dispersao(r, destaque) {
+  const Wd=800, H=430, ml=62, mr=28, mt=26, mb=54;
+  const pw=Wd-ml-mr, ph=H-mt-mb;
+  const lo=0.2, hi=1.0;
+  const X = v => ml + (v-lo)/(hi-lo)*pw;
+  const Y = v => mt + (1-(v-lo)/(hi-lo))*ph;
+  const w = W/100;
+  const corte = r.length ? score(r[Math.min(4, r.length-1)], W) : 0;   // top 5
+  const topo = new Set(r.slice(0,5).map(x=>x.s));
+  let s = `<rect x="${ml}" y="${mt}" width="${pw}" height="${ph}" fill="#FCFCFD" stroke="var(--linha)"/>`;
+  for (let k=0;k<=4;k++){
+    const v = lo + (hi-lo)*k/4;
+    s += `<line x1="${X(v)}" y1="${mt}" x2="${X(v)}" y2="${mt+ph}" stroke="#F1F1F4"/>`;
+    s += `<line x1="${ml}" y1="${Y(v)}" x2="${ml+pw}" y2="${Y(v)}" stroke="#F1F1F4"/>`;
+    s += `<text class="tick" x="${X(v)}" y="${mt+ph+17}" text-anchor="middle">${br(v)}</text>`;
+    s += `<text class="tick" x="${ml-9}" y="${Y(v)+3}" text-anchor="end">${br(v)}</text>`;
+  }
+  // fronteira do peso: w*C + (1-w)*F = corte
+  let pts = [];
+  if (w > 0.001 && w < 0.999) {
+    for (const f of [lo, hi]) {
+      const c = (corte - (1-w)*f)/w;
+      if (c >= lo && c <= hi) pts.push([f, c]);
+    }
+    for (const c of [lo, hi]) {
+      const f = (corte - w*c)/(1-w);
+      if (f >= lo && f <= hi) pts.push([f, c]);
+    }
+  } else if (w >= 0.999) { pts = [[lo, corte], [hi, corte]]; }
+  else { pts = [[corte, lo], [corte, hi]]; }
+  if (pts.length >= 2) {
+    const [a,b] = [pts[0], pts[pts.length-1]];
+    s += `<line x1="${X(a[0])}" y1="${Y(a[1])}" x2="${X(b[0])}" y2="${Y(b[1])}"
+          stroke="var(--laranja)" stroke-width="1.6" stroke-dasharray="6 5"/>`;
+    s += `<text class="qlab" x="${X(b[0])-6}" y="${Y(b[1])-8}" text-anchor="end"
+          fill="var(--laranja)">FRONTEIRA DAS 5 PRIMEIRAS</text>`;
+  }
+  s += `<text class="axlab" x="${ml+pw/2}" y="${H-9}" text-anchor="middle">FACILIDADE DE CONTRATAR →</text>`;
+  s += `<text class="axlab" transform="translate(16,${mt+ph/2}) rotate(-90)" text-anchor="middle">COMPETÊNCIA →</text>`;
+
+  const usados = [];
+  r.forEach((i,k) => {
+    const dest = destaque === i.s;
+    const top = topo.has(i.s);
+    const rad = 6 + Math.max(0, (r.length-k))/r.length*9;
+    const x = X(i.fac), y = Y(i.comp);
+    const cor = dest ? "var(--navy)" : (top ? "var(--laranja)" : "#A9B0BA");
+    s += `<circle class="pt" cx="${x}" cy="${y}" r="${rad}" fill="${cor}" fill-opacity=".9"
+      stroke="#fff" stroke-width="${dest?3:1.5}" onclick="location.hash='#/ict/${i.s}'">
+      <title>${esc(i.s)} — ${k+1}º lugar · competência ${br(i.comp)} · facilidade ${br(i.fac)}</title></circle>`;
+    const bolhas = r.map(z => ({bx:X(z.fac), by:Y(z.comp), br:6+Math.max(0,(r.length-r.indexOf(z)))/r.length*9}));
+    const larg = i.s.length * 5.4 + 6;
+    const ok = (lx, ly) =>
+      lx-larg/2 > ml+2 && lx+larg/2 < ml+pw-2 && ly > mt+11 && ly < mt+ph-3 &&
+      !usados.some(u => Math.abs(u.x-lx) < (larg+u.w)/2+4 && Math.abs(u.y-ly) < 11) &&
+      !bolhas.some(bb => Math.abs(bb.bx-lx) < larg/2+bb.br-1 && Math.abs(bb.by-(ly-4)) < bb.br+3);
+    let lx = x, ly = y - rad - 7, achou = false;
+    for (const [dx, dy] of [[0,-rad-7],[0,rad+13],[0,-rad-19],[0,rad+25],
+                            [larg/2+rad+5,4],[-(larg/2+rad+5),4],
+                            [larg/2+rad+5,-9],[-(larg/2+rad+5),-9],
+                            [0,-rad-31],[0,rad+37]]) {
+      if (ok(x+dx, y+dy)) { lx = x+dx; ly = y+dy; achou = true; break; }
+    }
+    if (!achou) { lx = x; ly = y - rad - 7; }
+    usados.push({x:lx, y:ly, w:larg});
+    s += `<text class="ptlab" x="${lx}" y="${ly}" text-anchor="middle"
+      fill="${dest?"var(--navy)":(top?"var(--laranja-esc)":"#7A828C")}">${esc(i.s)}</text>`;
   });
-  if(!out.length)throw new Error("Nenhuma linha com tema e ICT preenchidos.");
-  DADOS=out;calc();tema=null;aberta=null;montarTemas();render();
-  const nt=temasLista().length, nok=DADOS.filter(d=>d.ok).length;
-  $("stat").innerHTML=`${out.length} linhas · ${nt} tema${nt>1?"s":""} · ${nok} com nota nos dois eixos`;
-  $("stat").style.color="var(--cyan)";
+  return `<svg viewBox="0 0 ${Wd} ${H}" role="img"
+    aria-label="Competência por facilidade das instituições">${s}</svg>`;
 }
-function lerArquivo(f){
-  if(!f)return;
-  const fr=new FileReader();
-  fr.onload=()=>{try{carregar(fr.result)}catch(e){
-    $("stat").textContent=e.message;$("stat").style.color="#FF9E7A"}};
-  fr.onerror=()=>{$("stat").textContent="Não consegui ler o arquivo.";$("stat").style.color="#FF9E7A"};
-  fr.readAsText(f,"utf-8");
-}
-const drop=$("drop");
-$("csv").addEventListener("change",e=>lerArquivo(e.target.files[0]));
-drop.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("csv").click()}});
-["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{
-  e.preventDefault();drop.classList.add("on")}));
-["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{
-  e.preventDefault();drop.classList.remove("on")}));
-drop.addEventListener("drop",e=>lerArquivo(e.dataTransfer.files[0]));
 
-["fAd","fReg","fEmb"].forEach(id=>$(id).addEventListener("change",()=>{aberta=null;render()}));
-$("w").addEventListener("input",render);
-calc();montarTemas();render();
+/* ---------------- card ---------------- */
+const card = (i, pos) => `<a class="ct" href="#/ict/${i.s}">
+  <div class="pos">${pos}º</div>
+  <h3>${esc(i.s)}</h3>
+  <div class="nm">${esc(i.n)}</div>
+  <div class="barras">
+    <div class="bl"><span class="k">Compet.</span>
+      <span class="tr"><i style="width:${i.comp*100}%;background:var(--laranja)"></i></span>
+      <span class="v">${br(i.comp)}</span></div>
+    <div class="bl"><span class="k">Facilid.</span>
+      <span class="tr"><i style="width:${i.fac*100}%;background:var(--navy)"></i></span>
+      <span class="v">${br(i.fac)}</span></div>
+  </div>
+  <div class="rod"><span>${esc(i.reg)} · ${esc(i.uf)}</span>
+    <span>score <b>${br(score(i,W))}</b></span></div></a>`;
+
+/* ============================ RANKING ============================ */
+function ranking() {
+  const r = ranked(W);
+  app.innerHTML = `
+    <div class="eyebrow">Tabela completa</div>
+    <h1>Ranking das dezenove instituições</h1>
+    <p class="lead">Ordenado pelo peso atual de <b>${W}% competência e ${100-W}% facilidade</b>.
+      Altere o peso no Panorama.</p>
+    <div class="tab-wrap"><table><thead><tr>
+      <th class="c">#</th><th>Instituição</th><th>Região</th>
+      <th class="c">Competência</th><th class="c">Facilidade</th>
+      <th class="c">Score</th><th>Quadrante</th>
+    </tr></thead><tbody>${r.map((i,k)=>`<tr>
+      <td class="c" style="color:var(--tx3);font-weight:700">${k+1}</td>
+      <td><a href="#/ict/${i.s}"><b style="color:var(--navy)">${esc(i.s)}</b></a>
+        <div style="font-size:10.5px;color:var(--tx3)">${esc(i.n)}</div></td>
+      <td>${esc(i.reg)}</td>
+      <td class="c"><b>${br(i.comp)}</b><div style="font-size:9.5px;color:var(--tx3)">${esc(i.nc)}</div></td>
+      <td class="c"><b>${br(i.fac)}</b><div style="font-size:9.5px;color:var(--tx3)">${esc(i.nf)}</div></td>
+      <td class="c" style="font-weight:800;color:var(--laranja)">${br(score(i,W))}</td>
+      <td style="font-size:11.5px">${esc(i.quad)}</td>
+    </tr>`).join("")}</tbody></table></div>`;
+}
+
+/* ============================ FICHA ============================ */
+function ficha(sig) {
+  const i = ICTS.find(x => x.s === sig);
+  if (!i) return naoAchou();
+  const r = ranked(W);
+  const pos = r.findIndex(x => x.s === sig) + 1;
+  const pc = ICTS.slice().sort((a,b)=>b.comp-a.comp).findIndex(x=>x.s===sig)+1;
+  const pf = ICTS.slice().sort((a,b)=>b.fac-a.fac).findIndex(x=>x.s===sig)+1;
+  const n = ICTS.length;
+  let linhas = "", faixa = null;
+  [...CS, ...FS].forEach(k => {
+    const bloco = k[0] === "C" ? "Competência" : "Facilidade de contratar";
+    if (bloco !== faixa) { faixa = bloco; linhas += `<tr class="faixa"><td colspan="4">${faixa}</td></tr>`; }
+    const v = i.notas[k], vaz = (v === null || v === undefined);
+    linhas += `<tr>
+      <td style="width:9%"><b style="color:var(--laranja)">${k}</b></td>
+      <td style="width:31%"><b style="color:var(--navy)">${esc(ROT[k].nome)}</b></td>
+      <td class="c" style="width:9%"><span class="nota${vaz?" vaz":""}">${vaz?"–":v}</span></td>
+      <td style="color:var(--tx2)">${esc(i.ev[k]) || "—"}</td></tr>`;
+  });
+  app.innerHTML = `
+    <a class="volta" href="#/">← todas as instituições</a>
+    <div class="eyebrow">Ficha da instituição</div>
+    <h1>${esc(i.s)}</h1>
+    <p class="lead">${esc(i.n)} · ${esc(i.reg)} · ${esc(i.uf)}${
+      i.prog ? ` · programa de referência: <b>${esc(i.prog)}</b>` : ""}</p>
+
+    <div class="placar">
+      <div class="p"><div class="k">Competência</div><div class="v">${br(i.comp)}</div>
+        <div class="trilho"><i style="width:${i.comp*100}%"></i></div>
+        <div class="s"><b>${pc}º de ${n}</b> · cobertura ${esc(i.nc)}</div></div>
+      <div class="p" style="border-top-color:var(--navy)"><div class="k">Facilidade</div>
+        <div class="v">${br(i.fac)}</div>
+        <div class="trilho"><i style="width:${i.fac*100}%;background:var(--navy)"></i></div>
+        <div class="s"><b>${pf}º de ${n}</b> · cobertura ${esc(i.nf)}</div></div>
+      <div class="p"><div class="k">Posição no peso atual</div><div class="v">${pos}º</div>
+        <div class="s">score <b>${br(score(i,W))}</b> · ${W}% competência</div></div>
+      <div class="p" style="border-top-color:var(--navy)"><div class="k">Encaminhamento</div>
+        <div class="v" style="font-size:17px;line-height:1.3;margin-top:7px">${esc(i.quad)}</div></div>
+    </div>
+
+    ${i.obs ? `<div class="callout"><p>${esc(i.obs)}</p></div>` : ""}
+
+    <section>
+      <div class="sec-lab">Posição</div>
+      <h2>Onde ${esc(i.s)} fica no grupo</h2>
+      <div class="mapa">${dispersao(r, sig)}</div>
+    </section>
+
+    <section>
+      <div class="sec-lab">Detalhe</div>
+      <h2>Nota de cada critério</h2>
+      <p class="sec-sub">Célula vazia é critério não levantado, e não nota zero. A terceira
+        coluna traz a evidência que gerou a nota.</p>
+      <div class="tab-wrap"><table><thead><tr>
+        <th>Cód.</th><th>Critério</th><th class="c">Nota</th><th>Evidência</th>
+      </tr></thead><tbody>${linhas}</tbody></table></div>
+    </section>`;
+}
+
+/* ============================ CRITÉRIOS ============================ */
+function criterios() {
+  const bloco = (tit, sub, cods) => `
+    <section><div class="sec-lab">${tit}</div><h2>${sub}</h2>
+    <div class="tab-wrap"><table><thead><tr>
+      <th>Cód.</th><th>Critério</th><th>O que mede</th><th>Campo de origem</th>
+    </tr></thead><tbody>${cods.map(k=>`<tr>
+      <td><b style="color:var(--laranja)">${k}</b></td>
+      <td><b style="color:var(--navy)">${esc(ROT[k].nome)}</b></td>
+      <td style="color:var(--tx2)">${esc(EXPL[k])}</td>
+      <td style="color:var(--tx3);font-size:11.5px">${esc(ROT[k].campo)}</td>
+    </tr>`).join("")}</tbody></table></div></section>`;
+  app.innerHTML = `
+    <div class="eyebrow">Régua de avaliação</div>
+    <h1>Os dezenove critérios</h1>
+    <p class="lead">Cada critério vale de <b>0 a 3</b>, em escala ordinal com âncoras verbais.
+      A nota de cada eixo é a média dos critérios levantados, dividida por três, e varia de 0 a 1.
+      A única exceção é F6, que vai de 0 a 4 e é normalizada no cálculo.</p>
+    ${bloco("Competência · bloco A","Produção científica",["C1","C2","C3","C4","C5"])}
+    ${bloco("Competência · bloco B","Capacidade aplicada",["C6","C7","C8","C9","C10","C11","C12"])}
+    ${bloco("Facilidade","Condições de contratação",FS)}
+    <div class="callout navy">
+      <p><b>Cobertura importa tanto quanto a nota.</b> Critério não levantado é excluído da
+        média, de modo que cobertura baixa infla o resultado. A ficha de cada instituição mostra
+        quantos critérios sustentam cada eixo.</p>
+    </div>`;
+}
+const EXPL = {
+ C1:"Tamanho da produção no tema, sem julgar qualidade.",
+ C2:"Quantos trabalhos foram citados acima da média mundial da área.",
+ C3:"Que proporção da produção está acima da média mundial. Mede consistência, não volume.",
+ C4:"O quanto a instituição colabora com outras. Mede se ela é procurada como parceira.",
+ C5:"Nota do programa de pós-graduação mais aderente à área, na escala CAPES de 3 a 7.",
+ C6:"Se há unidade credenciada pela EMBRAPII e se a área dela é a que interessa.",
+ C7:"Classificação de desempenho da unidade EMBRAPII, de Bronze a Diamante.",
+ C8:"Posição no ranking de pesquisa aplicada da ANP.",
+ C9:"Histórico de execução de projetos de P&D com recursos regulados do setor elétrico.",
+ C10:"Quantos laboratórios de pesquisa a instituição tem na área.",
+ C11:"Quantos pesquisadores atuam na área.",
+ C12:"Pedidos de patente depositados no INPI no último ano fechado.",
+ F1:"Prazo médio entre o acordo técnico e a assinatura do contrato.",
+ F2:"Se a fundação de apoio é experiente e ágil, ou se a contratação é direta.",
+ F3:"O que o regulamento permite quanto à titularidade, e se define contrapartida.",
+ F4:"Se há modelo de contrato padronizado ou exige negociar do zero.",
+ F5:"Se laboratórios e equipamentos ficam disponíveis para o projeto.",
+ F6:"Se existe estrutura organizada de relacionamento com empresas. Escala de 0 a 4.",
+ F7:"Se há NIT ativo e procedimento definido para licenciar tecnologia.",
+};
+
+/* ============================ MÉTODO ============================ */
+function metodo() {
+  app.innerHTML = `
+    <div class="eyebrow">Método</div>
+    <h1>Como este ranking foi montado</h1>
+    <p class="lead">Três etapas: definir o que medir, levantar os dados e converter em nota.</p>
+
+    <section>
+      <div class="sec-lab">Etapa 1</div>
+      <h2>O recorte temático</h2>
+      <p class="sec-sub">A base é a produção brasileira em <b>Agentic AI and Reasoning
+        Systems</b> entre 2023 e 2026, extraída do OpenAlex e congelada em arquivo. Congelar é
+        necessário porque a base é atualizada continuamente: a mesma consulta, feita com uma
+        semana de diferença, devolve números diferentes.</p>
+      <div class="callout">
+        <p>Foram testados <b>sete filtros</b> até chegar a um recorte com precisão aceitável.
+          Busca por texto livre retornou 27 mil resultados, entre eles nanopartículas de prata e
+          agentes comunitários de saúde — o OpenAlex reduz cada termo ao radical antes de buscar,
+          e aspas não protegem contra isso. O recorte adotado usa identificador de tópico.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-lab">Etapa 2</div>
+      <h2>O levantamento</h2>
+      <p class="sec-sub">Cada instituição recebeu dezenove medidas, de três origens distintas.</p>
+      <div class="tab-wrap"><table><thead><tr>
+        <th>Origem</th><th>O que fornece</th><th class="c">Critérios</th>
+      </tr></thead><tbody>
+        <tr><td><b style="color:var(--navy)">Corpus bibliométrico</b></td>
+          <td>Volume de publicações, trabalhos acima da média mundial, taxa de excelência e
+            centralidade na rede de coautoria</td><td class="c"><b>C1 a C4</b></td></tr>
+        <tr><td><b style="color:var(--navy)">Bases públicas</b></td>
+          <td>Nota CAPES na Plataforma Sucupira, credenciamento e desempenho EMBRAPII, ranking
+            ANP, histórico ANEEL e patentes no INPI</td><td class="c"><b>C5 a C9, C12</b></td></tr>
+        <tr><td><b style="color:var(--navy)">Levantamento direto</b></td>
+          <td>Laboratórios, pesquisadores, prazo de tramitação, fundação de apoio, política de
+            PI, minutas, infraestrutura, relacionamento empresarial e NIT</td>
+          <td class="c"><b>C10, C11, F1 a F7</b></td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section>
+      <div class="sec-lab">Etapa 3</div>
+      <h2>A conversão em nota</h2>
+      <p class="sec-sub">Cada medida é convertida numa nota de 0 a 3 por uma régua declarada.
+        Critérios de contagem usam quartis do grupo; critérios qualitativos usam âncoras verbais.</p>
+      <div class="callout navy">
+        <p><b>Por que quartil e não valor fixo.</b> Contagens dependem do tamanho do corpus:
+          um número alto neste recorte seria baixo em outro. O quartil responde à pergunta certa
+          nesta etapa — onde esta instituição está em relação às demais avaliadas.</p>
+        <p><b>Vazio não é zero.</b> Critério não levantado sai da média; critério levantado com
+          resultado nulo entra como zero. Confundir os dois infla a nota de quem tem pouca
+          cobertura.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-lab">Os dois eixos</div>
+      <h2>Competência e facilidade</h2>
+      <p class="sec-sub">A separação entre os eixos é a decisão de método que estrutura todo o
+        trabalho.</p>
+      <div class="tab-wrap"><table><thead><tr>
+        <th>Eixo</th><th>Pergunta que responde</th><th class="c">Critérios</th>
+      </tr></thead><tbody>
+        <tr><td><b style="color:var(--laranja)">Competência</b></td>
+          <td>A instituição sabe fazer? Produção científica, credenciamentos, estrutura
+            instalada e capacidade de proteger o que desenvolve</td>
+          <td class="c"><b>12</b></td></tr>
+        <tr><td><b style="color:var(--navy)">Facilidade</b></td>
+          <td>Quanto custa contratá-la? Prazo, via de contratação, propriedade intelectual,
+            minuta, infraestrutura e transferência de tecnologia</td>
+          <td class="c"><b>7</b></td></tr>
+      </tbody></table></div>
+      <div class="callout">
+        <p>Os dois não andam juntos, e reduzi-los a um índice único é o erro que a matriz existe
+          para evitar. <b>Deficiência de competência não se resolve por instrumento contratual;
+          deficiência de facilidade quase sempre se resolve.</b> Saber em qual dos dois está o
+          obstáculo é o que orienta a decisão — e é por isso que o peso entre eles é escolha de
+          quem decide, e não do método.</p>
+      </div>
+    </section>`;
+}
+
+function naoAchou() {
+  app.innerHTML = `<h1>Página não encontrada</h1>
+    <p class="lead">Volte para <a href="#/" style="color:var(--laranja);font-weight:700">o
+    panorama</a>.</p>`;
+}
+
+/* ============================ ROTEADOR ============================ */
+function rotear() {
+  const h = (location.hash || "#/").replace(/^#/, "");
+  const p = h.split("/").filter(Boolean);
+  document.querySelectorAll("nav a").forEach(a => {
+    const alvo = a.getAttribute("href").replace(/^#/, "");
+    a.classList.toggle("on", alvo === h || (alvo === "/" && p.length === 0));
+  });
+  window.scrollTo(0,0);
+  if (p.length === 0) return panorama();
+  if (p[0] === "ranking") return ranking();
+  if (p[0] === "criterios") return criterios();
+  if (p[0] === "metodo") return metodo();
+  if (p[0] === "ict" && p[1]) return ficha(decodeURIComponent(p[1]));
+  naoAchou();
+}
+window.addEventListener("hashchange", rotear);
+rotear();
 </script>
 </body>
 </html>
