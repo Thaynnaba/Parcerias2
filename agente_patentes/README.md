@@ -24,7 +24,23 @@ O agente também:
 - agrupa o mesmo invento depositado em vários países (**família de patentes**: BR, WO, US, EP...);
 - classifica o **tipo** (PI, MU, PCT, certificado de adição) pela numeração/código do documento.
 
-## Instalação
+## Passo a passo para quem não programa
+
+1. **Instale o Python** (só uma vez): https://www.python.org/downloads/ → "Download Python".
+   No Windows, na primeira tela da instalação, **marque "Add python.exe to PATH"**.
+2. **Crie a chave da Anthropic** (só uma vez): https://console.anthropic.com → crie a conta →
+   *Billing* → adicione créditos → *API Keys* → *Create Key* → copie a chave (começa com `sk-ant-`).
+3. **Baixe esta pasta** e descompacte o ZIP.
+4. Abra a pasta `agente_patentes` e dê **dois cliques** em:
+   - Windows: `iniciar.bat` (se aparecer "O Windows protegeu o computador", clique em
+     *Mais informações* → *Executar assim mesmo*);
+   - Mac: `iniciar.command` (se o Mac bloquear, clique com o botão direito → *Abrir* → *Abrir*).
+5. Na primeira vez ele demora alguns minutos preparando tudo. Depois abre uma página no navegador:
+   cole a chave em **Configurações**, clique em *Salvar chaves*, digite o nome do pesquisador e
+   clique em *Pesquisar*.
+6. Não feche a janela preta enquanto estiver usando. Para encerrar, feche-a.
+
+## Instalação (modo técnico)
 
 Requer Python 3.10+.
 
