@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Busca de Patentes do Pesquisador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout: coluna única de ferramenta — formulário no topo, depois os 3 passos em sequência real. Identidade herdada do site Parcerias (laranja + marinho, Inter). */
+:root{
+  --laranja:#EC7000; --laranja-esc:#B45500; --laranja-cl:#FDF1E4;
+  --navy:#10284A; --navy-cl:#E9EDF3;
+  --bg:#FFFFFF; --card:#FFFFFF; --mut:#F5F6F9; --linha:#E1E4EA;
+  --tx:#2B3138; --tx2:#636A73; --tx3:#8E959E; --ok:#1B6B4A; --ok-cl:#E7F4EE;
+  --f:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --laranja:#FF8A1F; --laranja-esc:#FFA552; --laranja-cl:#3A2410;
+  --navy:#C9D6EA; --navy-cl:#1C2636;
+  --bg:#10151D; --card:#161D27; --mut:#1B2330; --linha:#2A3444;
+  --tx:#E3E7ED; --tx2:#A3ACB8; --tx3:#7C8696; --ok:#5FD3A0; --ok-cl:#123227; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --laranja:#FF8A1F; --laranja-esc:#FFA552; --laranja-cl:#3A2410;
+  --navy:#C9D6EA; --navy-cl:#1C2636;
+  --bg:#10151D; --card:#161D27; --mut:#1B2330; --linha:#2A3444;
+  --tx:#E3E7ED; --tx2:#A3ACB8; --tx3:#7C8696; --ok:#5FD3A0; --ok-cl:#123227; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--f);font-size:15px;line-height:1.55}
+.wrap{max-width:880px;margin:0 auto;padding-inline:20px;padding-block:28px 60px;display:flex;flex-direction:column;gap:34px}
+a{color:var(--laranja-esc)}
+.eye{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--laranja)}
+h1{margin:6px 0 0;font-size:clamp(25px,4.4vw,34px);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+.lead{margin:10px 0 0;color:var(--tx2);max-width:64ch}
+.lead b{color:var(--tx)}
+h2{margin:0;font-size:19px;font-weight:700;color:var(--navy);letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px;text-wrap:balance}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--laranja);font-weight:500}
+.sub{margin:6px 0 0;color:var(--tx2);font-size:14px;max-width:70ch}
+
+form{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;background:var(--mut);border:1px solid var(--linha);border-radius:6px;padding:18px}
+@media (max-width:640px){form{grid-template-columns:1fr}}
+label{display:flex;flex-direction:column;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx2);min-width:0}
+input{font:inherit;font-size:15px;text-transform:none;letter-spacing:0;color:var(--tx);background:var(--card);border:1px solid var(--linha);border-radius:4px;padding:10px 12px;width:100%}
+input:focus-visible{outline:2px solid var(--laranja);outline-offset:1px;border-color:var(--laranja)}
+.ex{grid-column:1/-1;font-size:12.5px;color:var(--tx3);margin:0}
+
+.bases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+@media (max-width:640px){.bases{grid-template-columns:1fr}}
+.base{border:1px solid var(--linha);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--card);min-width:0}
+.base h3{margin:0;font-size:15px;font-weight:700;color:var(--navy)}
+.base p{margin:0;font-size:13px;color:var(--tx2)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.btn{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:4px;border:1px solid var(--laranja);color:var(--laranja-esc);background:transparent;text-decoration:none;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn:hover{background:var(--laranja-cl)}
+.btn.cheio{background:var(--laranja);color:#fff;border-color:var(--laranja)}
+.btn.cheio:hover{background:var(--laranja-esc);border-color:var(--laranja-esc)}
+.btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.tag{font-family:var(--mono);font-size:11px;color:var(--tx3)}
+
+.claude{margin-top:14px;border:1px solid var(--linha);border-radius:6px;overflow:hidden}
+.claude .topo{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--navy-cl)}
+.claude .topo span{font-size:13px;color:var(--tx2);min-width:0}
+textarea{display:block;width:100%;height:220px;border:0;border-top:1px solid var(--linha);padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.5;color:var(--tx);background:var(--card);resize:vertical}
+.aviso{font-size:13px;color:var(--ok);background:var(--ok-cl);padding:8px 12px;border-radius:4px;margin:10px 0 0}
+
+.tab{overflow-x:auto;margin-top:14px;border:1px solid var(--linha);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--linha);vertical-align:top}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx2);background:var(--mut)}
+tr:last-child td{border-bottom:0}
+td code{font-family:var(--mono);font-size:12.5px;color:var(--laranja-esc);white-space:nowrap}
+ul.dicas{margin:12px 0 0;padding-left:20px;color:var(--tx2);font-size:14px;display:flex;flex-direction:column;gap:6px;max-width:72ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eye">Inteligência tecnológica · Parcerias</div>
+    <h1>Este pesquisador tem patente ou modelo de utilidade?</h1>
+    <p class="lead">Digite o nome. A página monta as buscas prontas no <b>INPI, Espacenet,
+      PATENTSCOPE e Google Patentes</b> e prepara as instruções para o Claude analisar tudo
+      e dizer a situação de cada pedido. <b>Não custa nada</b> e não precisa instalar nada.</p>
+  </header>
+
+  <form id="f" autocomplete="off">
+    <label for="nome">Nome do pesquisador
+      <input id="nome" value="Maria da Silva Santos"></label>
+    <label for="inst">Instituição (opcional)
+      <input id="inst" placeholder="ex.: UFMG"></label>
+    <label for="area">Área (opcional)
+      <input id="area" placeholder="ex.: química"></label>
+    <p class="ex" id="exnota">O nome acima é só um exemplo. Troque pelo pesquisador que você quer consultar.</p>
+  </form>
+
+  <section>
+    <h2><span class="n">1</span>Peça ao Claude para fazer a busca completa</h2>
+    <p class="sub">O jeito mais fácil. Usa o seu plano do Claude, sem créditos extras. O Claude
+      pesquisa nas quatro bases, separa homônimos e devolve uma tabela com tipo e situação.
+      Clique em <b>Abrir no Claude</b> e envie a mensagem. Se a mensagem não aparecer pronta,
+      use <b>Copiar instruções</b> e cole na conversa.</p>
+    <div class="claude">
+      <div class="topo">
+        <span>Confira se a <b>pesquisa na web</b> está ligada no Claude (ícone de ferramentas, abaixo da caixa de texto).</span>
+        <div class="btns">
+          <button type="button" class="btn" id="copiar">Copiar instruções</button>
+          <a class="btn cheio" id="abrirClaude" href="https://claude.ai/new" target="_blank" rel="noopener">Abrir no Claude ↗</a>
+        </div>
+      </div>
+      <textarea id="prompt" readonly aria-label="Instruções para o Claude"></textarea>
+    </div>
+    <p class="aviso" id="copiado" hidden>Instruções copiadas. Agora cole na conversa do Claude (Ctrl+V ou Cmd+V).</p>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>Ou confira você mesma em cada base</h2>
+    <p class="sub">Cada botão abre a busca já feita, numa nova aba. Os nomes aparecem de jeitos
+      diferentes em cada base, por isso há mais de uma variação.</p>
+    <div class="bases" id="bases"></div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>Como ler o que aparecer</h2>
+    <p class="sub">O código no fim do número do documento e os despachos do INPI dizem o tipo e a situação.</p>
+    <div class="tab"><table>
+      <thead><tr><th>Você vê</th><th>Significa</th></tr></thead>
+      <tbody>
+        <tr><td><code>BR 10…</code> <code>BR 11…</code> <code>PI…</code></td><td>Patente de invenção (vale 20 anos a partir do depósito)</td></tr>
+        <tr><td><code>BR 20…</code> <code>BR 21…</code> <code>MU…</code></td><td>Modelo de utilidade (vale 15 anos a partir do depósito)</td></tr>
+        <tr><td><code>A2</code> <code>A8</code> · <code>U2</code></td><td>Pedido publicado, ainda <b>solicitado</b> (sem decisão)</td></tr>
+        <tr><td><code>B1</code> <code>B8</code> · <code>Y1</code></td><td>Patente / MU <b>concedido</b></td></tr>
+        <tr><td><code>WO…</code></td><td>Pedido internacional (PCT). Não é patente concedida</td></tr>
+        <tr><td>Despacho <code>16.1</code></td><td>Concessão (INPI)</td></tr>
+        <tr><td>Despacho <code>9.2</code></td><td>Indeferimento (INPI)</td></tr>
+        <tr><td>Despachos <code>11.x</code></td><td>Arquivamento (INPI)</td></tr>
+        <tr><td>Despachos <code>21.x</code></td><td>Extinção, por exemplo por falta de pagamento da anuidade (INPI)</td></tr>
+        <tr><td>Google: <i>Active</i> / <i>Expired</i> / <i>Pending</i></td><td>Vigente / expirada / pedido em andamento</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="dicas">
+      <li>Pedidos com menos de 18 meses de depósito são sigilosos e não aparecem em nenhuma base.</li>
+      <li>Para confirmar que é a mesma pessoa, olhe a instituição titular e os coinventores.</li>
+      <li>O currículo Lattes do pesquisador tem a seção “Patentes e registros”, ótima para conferir.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const semAcento = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "");
+const PARTICULAS = new Set(["da","de","do","das","dos","e"]);
+
+function variacoes(nome){
+  const limpo = semAcento(nome).replace(/\s+/g," ").trim();
+  const partes = limpo.split(" ").filter(p => !PARTICULAS.has(p.toLowerCase()));
+  const vs = [limpo];
+  if (partes.length > 2) vs.push(partes[0] + " " + partes[partes.length-1]);
+  return [...new Set(vs)].filter(Boolean);
+}
+
+const BASES = [
+  { nome:"INPI (Brasil)", desc:"Pedidos depositados no Brasil. O site do INPI não aceita busca por link: o botão copia o nome e abre o site. Lá, entre em Patente → Pesquisa Avançada, cole o nome no campo “Inventor” e clique em Pesquisar.",
+    inpi:true, url:() => "https://busca.inpi.gov.br/pePI/servlet/LoginController?action=login" },
+  { nome:"Espacenet (Europa, mundial)", desc:"Base mundial do Escritório Europeu de Patentes, inclui documentos brasileiros e PCT.",
+    url:n => "https://worldwide.espacenet.com/patent/search?q=" + encodeURIComponent('in="' + n + '"') },
+  { nome:"PATENTSCOPE (OMPI)", desc:"Pedidos internacionais PCT (WO) e coleções nacionais.",
+    url:n => "https://patentscope.wipo.int/search/pt/result.jsf?query=" + encodeURIComponent('IN:("' + n + '")') },
+  { nome:"Google Patentes", desc:"Mostra o status (ativo, expirado) e a data prevista de expiração na página de cada documento.",
+    url:n => "https://patents.google.com/?inventor=" + encodeURIComponent(n) },
+];
+
+function montarBases(nome){
+  const vs = variacoes(nome);
+  $("bases").innerHTML = "";
+  for (const b of BASES){
+    const el = document.createElement("div");
+    el.className = "base";
+    el.innerHTML = `<h3></h3><p></p><div class="btns"></div>`;
+    el.querySelector("h3").textContent = b.nome;
+    el.querySelector("p").textContent = b.desc;
+    const box = el.querySelector(".btns");
+    for (const v of vs){
+      const a = document.createElement("a");
+      a.className = "btn"; a.target = "_blank"; a.rel = "noopener";
+      a.href = b.url(v);
+      a.textContent = (b.inpi ? "Copiar e abrir: " : "") + v + " ↗";
+      a.title = v;
+      if (b.inpi) a.addEventListener("click", () => copiar(v, "Nome copiado. No site do INPI, cole no campo “Inventor” (Ctrl+V ou Cmd+V)."));
+      box.appendChild(a);
+    }
+    $("bases").appendChild(el);
+  }
+}
+
+function montarPrompt(nome, inst, area){
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  return `Quero saber se o pesquisador abaixo tem patente de invenção ou modelo de utilidade.
+
+Pesquisador: ${nome}${inst ? "\nInstituição: " + inst : ""}${area ? "\nÁrea: " + area : ""}
+Data de hoje: ${hoje}
+
+Pesquise na web nas quatro bases: INPI (busca.inpi.gov.br), Espacenet (worldwide.espacenet.com), PATENTSCOPE (patentscope.wipo.int) e Google Patentes (patents.google.com). Use também o currículo Lattes, se achar. Teste variações do nome (sem acento, nome + último sobrenome, "SOBRENOME, NOME").
+
+Para cada documento encontrado:
+- Verifique se é mesmo esse pesquisador (instituição titular, coinventores, área). Dê confiança Alta, Média ou Baixa.
+- Tipo: patente de invenção (BR 10/BR 11/PI), modelo de utilidade (BR 20/BR 21/MU), pedido internacional PCT (WO) ou certificado de adição.
+- Situação, escolhendo uma: Solicitada | Concedida – vigente | Concedida – expirada | Extinta | Arquivada | Indeferida | Desconhecida. No Brasil a invenção vale 20 anos e o modelo de utilidade 15 anos, contados do depósito. Use os despachos do INPI (16.1 concessão, 9.2 indeferimento, 11.x arquivamento, 21.x extinção), o status do Google Patentes e os eventos legais do Espacenet.
+- Junte numa linha só o mesmo invento depositado em vários países.
+
+Responda em português com:
+1. Resumo: tem ou não tem patentes/MU, quantos, quantos concedidos e vigentes.
+2. Tabela: Invento | Tipo | Números | Titular | Depósito | Situação | Como você sabe a situação | Bases | Confiança | Link.
+3. Possíveis homônimos (confiança Baixa).
+4. Quais bases você conseguiu consultar e quais não.
+Não invente números nem datas: se não achar, escreva "não informado".`;
+}
+
+function copiar(texto, msg){
+  const ok = () => { $("copiado").textContent = msg || "Instruções copiadas. Agora cole na conversa do Claude (Ctrl+V ou Cmd+V)."; $("copiado").hidden = false; setTimeout(() => $("copiado").hidden = true, 6000); };
+  try {
+    navigator.clipboard.writeText(texto).then(ok, () => { if (!msg) selecionarPrompt(); });
+  } catch(e){ if (!msg) selecionarPrompt(); }
+}
+function selecionarPrompt(){ const t = $("prompt"); t.focus(); t.select(); }
+
+function atualizar(){
+  const nome = $("nome").value.trim() || "Maria da Silva Santos";
+  const inst = $("inst").value.trim(), area = $("area").value.trim();
+  const p = montarPrompt(nome, inst, area);
+  $("prompt").value = p;
+  $("abrirClaude").href = "https://claude.ai/new?q=" + encodeURIComponent(p);
+  montarBases(nome);
+  $("exnota").hidden = nome !== "Maria da Silva Santos";
+}
+
+$("f").addEventListener("submit", e => e.preventDefault());
+["nome","inst","area"].forEach(id => $(id).addEventListener("input", atualizar));
+$("copiar").addEventListener("click", () => copiar($("prompt").value));
+atualizar();
+</script>
+</body>
+</html>
